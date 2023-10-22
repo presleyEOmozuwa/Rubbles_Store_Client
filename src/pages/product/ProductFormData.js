@@ -126,7 +126,7 @@ const ProductFormData = () => {
                                                 const { field, meta } = props;
                                                 return (
                                                     <>
-                                                        <input className='form-control' type="text" id="prodName" />
+                                                        <input className='form-control' type="text" id="prodName" {...field}/>
                                                         {meta.touched && meta.error ? <p className='text-danger'>{meta.error}</p> : null}
                                                     </>
                                                 )
@@ -140,7 +140,7 @@ const ProductFormData = () => {
                                                 const { field, meta } = props;
                                                 return (
                                                     <>
-                                                        <input className='form-control' type="number" id="price" />
+                                                        <input className='form-control' type="number" id="price" {...field}/>
                                                         {meta.touched && meta.error ? <p className='text-danger'>{meta.error}</p> : null}
                                                     </>
                                                 )
@@ -154,7 +154,7 @@ const ProductFormData = () => {
                                                 const { field, meta } = props;
                                                 return (
                                                     <>
-                                                        <input className='form-control'  type="text" id="priceId" />
+                                                        <input className='form-control'  type="text" id="priceId" {...field}/>
                                                         {meta.touched && meta.error ? <p className='text-danger'>{meta.error}</p> : null}
                                                     </>
                                                 )
@@ -168,7 +168,7 @@ const ProductFormData = () => {
                                                 const { field, meta } = props;
                                                 return (
                                                     <>
-                                                        <input className='form-control'  type="number" id="coupon" />
+                                                        <input className='form-control'  type="number" id="coupon" {...field}/>
                                                     </>
                                                 )
                                             }}
@@ -181,7 +181,7 @@ const ProductFormData = () => {
                                                 const { field, meta } = props;
                                                 return (
                                                     <>
-                                                        <input className='form-control'  type="number" id="stockQty" />
+                                                        <input className='form-control'  type="number" id="stockQty" {...field}/>
                                                     </>
                                                 )
                                             }}
@@ -194,7 +194,7 @@ const ProductFormData = () => {
                                                 const { field, meta } = props;
                                                 return (
                                                     <>
-                                                        <input className='form-control'  type="text" id="des" />
+                                                        <input className='form-control'  type="text" id="des" {...field}/>
                                                         {meta.touched && meta.error ? <p className='text-danger'>{meta.error}</p> : null}
                                                     </>
                                                 )
@@ -208,7 +208,7 @@ const ProductFormData = () => {
                                                 const { field, meta } = props;
                                                 return (
                                                     <>
-                                                        <input className='form-control'  type="text" id="imageUrl" />
+                                                        <input className='form-control'  type="text" id="imageUrl" {...field}/>
                                                         {meta.touched && meta.error ? <p className='text-danger'>{meta.error}</p> : null}
                                                     </>
                                                 )

@@ -148,7 +148,7 @@ const LoginForm = () => {
                                         </div>
                                         <span className='me-5'>
                                             <Field>
-                                                <input className='form-check-input m-1' type='checkbox' value='remember me' onChange={(e) => handleRememberMe(e)} />
+                                                <input className='form-check-input m-1' type='checkbox' value='remember me' onChange={(e) => handleRememberMe(e)} id='remember me'/>
                                             </Field>
                                             <label className='' htmlFor='remember me'>Remember me</label>
                                         </span>
