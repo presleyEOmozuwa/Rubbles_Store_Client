@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { host } from '../../utils/base-endpoint';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import { totalHandler } from '../../utils/helper';
 import './ShoppingCart.css';
 import { deleteCartItem } from '../../services/product.service';
+import {  multipleRegularHandler } from '../../services/stripe.service';
+import { tokenRenewalHandler } from '../../utils/tokenRefresh';
 
 const ShoppingCart = ({ products, initAmount, httptoken, getToken, setToken, setDeletedProduct }) => {
     const [totalAmount, setTotalAmount] = useState(0);
+    const [updatedProducts, setUpdatedProducts] = useState([]);
 
     const { baseUrl } = host;
+
+    const navigate = useNavigate();
 
 
     const handleQty = (event, productId) => {
@@ -26,10 +30,28 @@ const ShoppingCart = ({ products, initAmount, httptoken, getToken, setToken, set
         }, 0)
 
         setTotalAmount(total);
+        setUpdatedProducts(modified);
     }
 
-    const handleCheckout = () => {
-        toast.info("Login to checkout");
+    const handleCheckout = (event) => {
+        event.preventDefault();
+        '/api/regular/multiple/create-checkout-session'
+        const token = getToken("access_token");
+        multipleRegularHandler(`${baseUrl}/api/regular/multiple/create-checkout-session`, { cartItems: updatedProducts }, { headers: httptoken(token) }).then((res) => {
+            console.log(res.data);
+            if (res && res.data) {
+                window.location.href = res.data.url
+            }
+        }).catch(async (err) => {
+            console.log(err);
+            const { error } = err.response.data;
+            if (err.response) {
+                if (error === "access token expired") {
+                    await tokenRenewalHandler(navigate, baseUrl, getToken, setToken, toast);
+                }
+            }
+        });
+
     }
 
 
@@ -105,7 +127,7 @@ const ShoppingCart = ({ products, initAmount, httptoken, getToken, setToken, set
 
                         <p className='mb-2 ms-3'> Total : <span className='fs-5 text-success fw-bold'>${totalAmount === 0 ? totalHandler(products).toFixed(2) : totalAmount.toFixed(2)}</span></p>
 
-                        <button className='border px-4 py-1 ms-2 bg-danger text-white shadow' onClick={() => handleCheckout()}>Checkout</button>
+                        <button className='border px-4 py-1 ms-2 bg-danger text-white shadow' onClick={(e) => handleCheckout(e)}>Checkout</button>
                     </div>
                 </div>
 
