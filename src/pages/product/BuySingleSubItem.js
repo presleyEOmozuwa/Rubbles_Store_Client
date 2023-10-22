@@ -6,11 +6,11 @@ import { singleSubHandler } from '../../services/stripe.service'
 import { tokenRenewalHandler } from '../../utils/tokenRefresh';
 import { toast } from 'react-toastify';
 
-const SingleSubscriptionItem = ({ cartItems, content }) => {
-    let auth = useAuth();
-    let { httptoken, getToken, setToken } = auth;
+const SingleSubscriptionItem = ({ cartItems }) => {
+    const auth = useAuth();
+    const { httptoken, getToken, setToken } = auth;
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const { baseUrl } = host;
 
@@ -32,9 +32,6 @@ const SingleSubscriptionItem = ({ cartItems, content }) => {
                     if (error === "access token expired") {
                         await tokenRenewalHandler(navigate, baseUrl, getToken, setToken, toast);
                     }
-                    if(error === "product already exist on cart"){
-                        toast.info(error);
-                    }
                 }
             });
             
@@ -43,7 +40,7 @@ const SingleSubscriptionItem = ({ cartItems, content }) => {
 
     return (
         <>
-            <button className='border px-4 py-1 ms-2 bg-danger text-white shadow' onClick={() => handleBuyNow()}>{content}</button>
+            <button className='border px-4 py-1 ms-2 bg-danger text-white shadow' onClick={() => handleBuyNow()}>BuyNow</button>
         </>
     );
 };

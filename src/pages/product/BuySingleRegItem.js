@@ -2,27 +2,27 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { host } from '../../utils/base-endpoint';
 import { useAuth } from '../../context/AuthContext';
-import { multipleSubHandler } from '../../services/stripe.service'
+import { singleRegularHandler } from '../../services/stripe.service'
 import { tokenRenewalHandler } from '../../utils/tokenRefresh';
 import { toast } from 'react-toastify';
 
-const MultipleSubscriptionItems = ({ products, content }) => {
-    let auth = useAuth();
-    let { httptoken, getToken, setToken } = auth;
+const SingleRegularItem = ({ cartItems }) => {
+    const auth = useAuth();
+    const { httptoken, getToken, setToken } = auth;
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const { baseUrl } = host;
 
 
-    const handleCheckout = () => {
+    const handleBuyNow = async () => {
         if (!getToken("access_token")) {
             toast.info("Login to continue");
         }
         else {
-            // MULTIPLE SUBSCRIPTION ITEMS 
+            // SINGLE REGULAR ITEM 
             const token = getToken("access_token");
-            multipleSubHandler(`${baseUrl}/api/sub/multiple/create-checkout-session`, { products: products }, { headers: httptoken(token)}).then((res) => {
+            singleRegularHandler(`${baseUrl}/api/single/regular/create-checkout-session`, { cartItems: cartItems }, { headers: httptoken(token)}).then((res) => {
                 if (res && res.data.url) {
                     window.location.href = res.data.url;
                 }
@@ -33,9 +33,6 @@ const MultipleSubscriptionItems = ({ products, content }) => {
                     if (error === "access token expired") {
                         await tokenRenewalHandler(navigate, baseUrl, getToken, setToken, toast);
                     }
-                    if(error === "product already exist on cart"){
-                        toast.info(error);
-                    }
                 }
             });
             
@@ -44,9 +41,9 @@ const MultipleSubscriptionItems = ({ products, content }) => {
 
     return (
         <>
-            <button className='border px-4 py-1 ms-2 bg-danger text-white shadow' onClick={() => handleCheckout()}>{content}</button>
+            <button className='border px-4 py-1 ms-2 bg-danger text-white shadow' onClick={() => handleBuyNow()}>BuyNow</button>
         </>
     );
 };
 
-export default MultipleSubscriptionItems;
+export default SingleRegularItem;

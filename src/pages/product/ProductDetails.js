@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { host } from '../../utils/base-endpoint';
 import './Product.css'
-import AddToCart from '../../components/payments_buttons/AddToCart';
+import AddToCart from './AddToCart';
 import { getProduct } from '../../services/product.service';
-import SingelRegularItem from '../../components/payments_buttons/SingleRegularItem';
-import SingleSubscriptionItem from '../../components/payments_buttons/SingleSubscriptionItem';
+import SingelRegularItem from './BuySingleRegItem';
+import SingleSubscriptionItem from './BuySingleSubItem';
 
 
 const ProductDetails = () => {
     let [product, setProduct] = useState({ id: '', prodName: '', price: 0, coupon: 0, newPrice: 0, priceId: '', imageUrl: '', quantity: 0, typeOfItem: '', des: '' });
 
-    let { _id, prodName, price, coupon, newPrice, imageUrl, typeOfItem, des } = product;
+    let { id, prodName, price, coupon, newPrice, imageUrl, typeOfItem, des } = product;
 
     let params = useParams();
     let { productId } = params
@@ -72,8 +72,8 @@ const ProductDetails = () => {
                     {typeOfItem === "subscription" ? <p > <span className='fw-bold mb-2'> NewPrice : </span>${newPrice} per month </p> : <p > <span className='fw-bold mb-2'> NewPrice : </span>${newPrice}</p>}
 
                     <div className='text-center mt-2'>
-                        {typeOfItem === "regular" ? <SingelRegularItem cartItems={[product]} content={"BuyNow"}/> : <SingleSubscriptionItem cartItems={[product]} content={"BuyNow"}/>}
-                        <AddToCart productId={_id} typeOfItem={typeOfItem} />
+                        {typeOfItem === "regular" ? <SingelRegularItem cartItems={[product]}/> : <SingleSubscriptionItem cartItems={[product]}/>}
+                        <AddToCart productId={id} typeOfItem={typeOfItem} />
                     </div>
                 </div>
                 <div className='col-lg-4 pt-5'>

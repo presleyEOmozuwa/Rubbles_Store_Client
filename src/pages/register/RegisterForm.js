@@ -78,7 +78,7 @@ const RegisterForm = () => {
         confirmEmail: Yup.string().required("confirm email field is required").oneOf([Yup.ref("email"), ""], "email do not match"),
         password: Yup.string().required("password field is required").min(8, "password must be minimum of 8 characters").max(10, "password must be maximum of 15 charaters"),
         confirmPassword: Yup.string().required("confirm password field is required").oneOf([Yup.ref("password"), ""], "password do not match"),
-        terms: Yup.boolean().required('Required').oneOf([true], 'You must accept the terms and conditions.')
+        terms: Yup.boolean().required('Required').oneOf([true], 'you must accept the terms and conditions.')
     })
 
 
@@ -191,13 +191,13 @@ const RegisterForm = () => {
                                                         return (
                                                             <>
                                                                 <input className='form-check-input rounded-0' id='terms' {...field} type='checkbox' />
+                                                                <label className='ms-2' htmlFor='terms'>I accept terms</label>
                                                                 {meta.touched && meta.error ? <p className='text-danger'>{meta.error}</p> : null}
                                                             </>
                                                         )
                                                     }
                                                 }
                                             </Field>
-                                            <label className='ms-2' htmlFor='terms'>I accept terms</label>
                                         </div>
                                         <div className='text-center'>
                                             <button className='btn btn-primary rounded-0 shadow px-3 fw-bold' type='submit'>Register</button>
