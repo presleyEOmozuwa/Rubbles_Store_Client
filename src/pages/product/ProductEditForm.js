@@ -5,7 +5,7 @@ import './Product.css'
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
 import { host } from '../../utils/base-endpoint';
-import { getProduct, getProductWithCategories } from '../../services/product.service';
+import { getProduct, getProductWithCategories, updateProduct } from '../../services/product.service';
 import { tokenRenewalHandler } from '../../utils/tokenRefresh';
 
 const ProductEditForm = () => {
@@ -15,7 +15,7 @@ const ProductEditForm = () => {
 
     const { categoryGroup } = categoryObj;
 
-    const { id, prodName, price, priceId, coupon, imageUrl, typeOfItem, des } = product;
+    const { id, prodName, price, priceId, coupon, imageUrl, stockQty, typeOfItem, des } = product;
     
     const params = useParams();
     const { productId } = params;
@@ -40,11 +40,12 @@ const ProductEditForm = () => {
         categories: [...categoryGroup]
     }
 
+
     const onSubmit = async (payload, onSubmitProps) => {
         const token = getToken("access_token");
-        createProduct(`${baseUrl}/api/product-form/payload`, payload, { headers: httptoken(token) }).then((res) => {
+        updateProduct(`${baseUrl}/api/product-update-form/payload`, payload, { headers: httptoken(token) }).then((res) => {
             console.log(res.data);
-            if (res && res.data.status === "product successfully created") {
+            if (res && res.data.status === "product updated successfully") {
                 onSubmitProps.resetForm();
                 navigate("/admin/productlist");
             }
@@ -124,7 +125,6 @@ const ProductEditForm = () => {
                     <Formik
                         initialValues={initialValues}
                         onSubmit={onSubmit}
-                        validationSchema={validationSchema}
                     >
                         {(formik) => {
                             const handleCategory = (event) => {

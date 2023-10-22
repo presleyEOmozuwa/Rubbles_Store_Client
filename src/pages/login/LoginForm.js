@@ -34,9 +34,9 @@ const LoginForm = () => {
 
 
     // REQUEST TO AUTHENTICATE WITH THE SERVER
-    const onSubmit = async (payLoad, onSubmitProps) => {
-        console.log(payLoad)
-        loginUser(`${baseUrl}/api/login/payload`, payLoad, { withCredentials: true }).then((res) => {
+    const onSubmit = async (payload, onSubmitProps) => {
+        console.log(payload)
+        loginUser(`${baseUrl}/api/login/payload`, payload, { withCredentials: true }).then((res) => {
             if (res?.data) {
                 onSubmitProps.resetForm();
                 setToken("access_token", res.data.accessToken);
@@ -120,10 +120,10 @@ const LoginForm = () => {
                                                     (props) => {
                                                         const { field, meta } = props
                                                         return (
-                                                            <div>
+                                                            <>
                                                                 <input className='form-control rounded-0' id='email' {...field} type='email' noValidate />
                                                                 {meta.touched && meta.error ? <p className='text-danger'>{meta.error}</p> : null}
-                                                            </div>
+                                                            </>
                                                         )
                                                     }
                                                 }
@@ -137,10 +137,10 @@ const LoginForm = () => {
                                                         const { field, meta } = props
 
                                                         return (
-                                                            <div>
+                                                            <>
                                                                 <input className='form-control rounded-0' id='password' {...field} type='password' />
                                                                 {meta.touched && meta.error ? <p className='text-danger'>{meta.error}</p> : null}
-                                                            </div>
+                                                            </>
                                                         )
                                                     }
                                                 }

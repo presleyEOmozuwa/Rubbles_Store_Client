@@ -4,6 +4,7 @@ import { host } from '../../utils/base-endpoint';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { totalHandler } from '../../utils/helper';
+import './GuestUser.css';
 
 const GuestUser = ({ products, initAmount, setDeletedItem }) => {
     let [totalAmount, setTotalAmount] = useState(0);
@@ -71,10 +72,9 @@ const GuestUser = ({ products, initAmount, setDeletedItem }) => {
                         </div>
                     </div>
                 </div>
-
-                <div className='row mt-4'>
+                <div className='row mt-4 show-cart'>
                     <div className='col-sm-3'></div>
-                    <div className='col-sm-6 p-5 shadow'>
+                    <div className='col-sm-6 p-5 shadow empty'>
                         <p className='display-5 mb-2'> Your Cart is Empty! </p>
                         <Link className='me-1 border py-1 px-3 bg-danger text-white fw-bolder shadow' to='/'> Shop Now </Link>
                     </div>
