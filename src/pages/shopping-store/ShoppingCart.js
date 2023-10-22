@@ -35,7 +35,6 @@ const ShoppingCart = ({ products, initAmount, httptoken, getToken, setToken, set
 
     const handleCheckout = (event) => {
         event.preventDefault();
-        '/api/regular/multiple/create-checkout-session'
         const token = getToken("access_token");
         multipleRegularHandler(`${baseUrl}/api/regular/multiple/create-checkout-session`, { cartItems: updatedProducts }, { headers: httptoken(token) }).then((res) => {
             console.log(res.data);
