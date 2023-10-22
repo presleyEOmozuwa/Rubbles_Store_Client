@@ -148,13 +148,22 @@ const LoginForm = () => {
                                         </div>
                                         <span className='me-5'>
                                             <Field>
-                                                <input className='form-check-input m-1' type='checkbox' value='remember me' onChange={(e) => handleRememberMe(e)} id='remember me'/>
+                                                {(props) => {
+                                                    return (
+                                                        <input className='form-check-input m-1' type='checkbox' value='remember me' onChange={(e) => handleRememberMe(e)} id='remember me'/>
+                                                    )
+                                                }}
+                                                
                                             </Field>
-                                            <label className='' htmlFor='remember me'>Remember me</label>
+                                            <label htmlFor='remember me'>Remember me</label>
                                         </span>
                                         <span className='ms-5'>
                                             <Field>
-                                                <input className='form-check-input m-1' id='use token' type='checkbox' value='use token' onChange={(e) => handleUseToken(e)} />
+                                                {(props) => {
+                                                    return (
+                                                        <input className='form-check-input m-1' id='use token' type='checkbox' value='use token' onChange={(e) => handleUseToken(e)} />
+                                                    )
+                                                }}
                                             </Field>
                                             <label htmlFor='use token'>Use token</label>
                                         </span>

@@ -38,7 +38,7 @@ const SubscriptionCart = ({ products, initAmount, httptoken, getToken, setToken,
     // REQUEST TO REMOVE AN ITEM FROM THE CART
     const handleDelete = async (event) => {
         const token = getToken("access_token");
-        deleteCartItem(`${baseUrl}/api/removefromcart/${event.target.value}`, { headers: httptoken(token) }).then((res) => {
+        deleteCartItem(`${baseUrl}/api/sub/removefromcart/${event.target.value}`, { headers: httptoken(token) }).then((res) => {
             console.log(res.data);
             if (res && res.data.status === "product removed from cart successfully") {
                 setDeletedProduct(res.data.product);
@@ -133,7 +133,7 @@ const SubscriptionCart = ({ products, initAmount, httptoken, getToken, setToken,
                                     <span className='m-3'> New Price </span>
                                     <span className='m-3 fw-bold'> ${p.newPrice} </span>
                                 </div> : null}
-                                <div>
+                                <div className='mb-1'>
                                     <span className='mx-3'>Quantity</span>
                                     <span>{p.quantity}</span>
                                 </div>    
