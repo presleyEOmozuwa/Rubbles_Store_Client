@@ -22,7 +22,8 @@ const CategoryForm = () => {
 
     // REQUEST TO SUBMIT CATEGORY DATA TO SERVER
     const onSubmit = async (payload, onSubmitProps) => {
-        createCategory(`${baseUrl}/api/category-form/payload`, { payload: payload }, { headers: httptoken(getToken("access_token")) }).then((res) => {
+        '/api/create/category'
+        createCategory(`${baseUrl}/api/create/category`, { payload: payload }, { headers: httptoken(getToken("access_token")) }).then((res) => {
             
             if (res && res.data.status === "category created successfully") {
                 console.log(res.data.category);
@@ -65,7 +66,7 @@ const CategoryForm = () => {
 
                                                         return (
                                                             <div>
-                                                                <input className='form-control rounded-0' id='catName' {...field} type='text' />
+                                                                <input className='form-control rounded-0' id='catName' {...field} type='text'/>
                                                             </div>
                                                         )
                                                     }

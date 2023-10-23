@@ -34,15 +34,17 @@ const LoginForm = () => {
 
 
     // REQUEST TO AUTHENTICATE WITH THE SERVER
-    const onSubmit = async (payload, onSubmitProps) => {
-        console.log(payload)
-        loginUser(`${baseUrl}/api/login/payload`, payload, { withCredentials: true }).then((res) => {
-            if (res?.data) {
+    const onSubmit = async (values, onSubmitProps) => {
+        console.log(values)
+        loginUser(`${baseUrl}/api/login/payload`, { payload: values }, { withCredentials: true }).then((res) => {
+            if (res && res?.data.status === "login successful") {
                 onSubmitProps.resetForm();
-                setToken("access_token", res.data.accessToken);
-                setToken("refresh_token", res.data.refreshToken);
-                let user = tokenDecoder(getToken("access_token"));
-                let { role } = user;
+                
+                setToken("access_token", res.data.accToken);
+                setToken("refresh_token", res.data.renewToken);
+                
+                const user = tokenDecoder(getToken("access_token"));
+                const { role } = user;
 
                 login(user);
 
@@ -56,6 +58,10 @@ const LoginForm = () => {
                     return navigate('/', { replace: true });
                 }
             }
+            else if(res && res.data.status === "otp sent to user"){
+                return navigate(`/otp/2fa/${res.data.userId}`);
+            }
+    
         }).catch((err) => {
             if (err && err.response) {
                 const { error } = err.response.data;

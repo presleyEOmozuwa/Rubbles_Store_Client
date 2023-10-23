@@ -8,16 +8,16 @@ import { tokenRenewalHandler } from '../../utils/tokenRefresh';
 import { toast } from 'react-toastify';
 
 const CategoryList = () => {
-    let [categoryObj, setCategories] = useState({ categories: [] })
-    let { categories } = categoryObj;
+    const [categoryObj, setCategories] = useState({ categories: [] })
+    const { categories } = categoryObj;
 
     const auth = useAuth();
-    let { httptoken, getToken, setToken } = auth;
+    const { httptoken, getToken, setToken } = auth;
 
-    let [deletedCategory, setDeletedCategory] = useState({ });
+    const [deletedCategory, setDeletedCategory] = useState({ });
 
     const navigate = useNavigate();
-    let { baseUrl } = host;
+    const { baseUrl } = host;
 
 
     // REQUEST TO GET ALL CATEGORIES
@@ -46,7 +46,7 @@ const CategoryList = () => {
 
 
     const handleDelete = async (event) => {
-        deleteCategory(`${baseUrl}/api/category-details-delete/${event.target.value}`, { headers: httptoken(getToken("access_token")) }).then((res) => {
+        deleteCategory(`${baseUrl}/api/delete/category/${event.target.value}`, { headers: httptoken(getToken("access_token")) }).then((res) => {
             if (res && res.data.status === "category deleted successfully") {
                 setDeletedCategory(res.data.deletedCategory);
                 navigate('/admin/categorylist');

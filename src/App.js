@@ -4,13 +4,13 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { google } from './utils/google.utils'
+import { google } from './vars/google.utils'
 import HomeProducts from './pages/home/HomeProducts';
 import NoMatch from './pages/no-match/NoMatch';
 import { AuthProvider } from './context/AuthContext';
 import { LayoutAdmin, LayoutAuthUser, LayoutPublic } from './components/auth-layout/AuthLayout';
 
-import { Admin, AdminHome, AdminSubProducts, UserEditAdminForm, UserBlockAdmin, CheckoutRegMultiple, CheckoutRegSingle, CheckoutSubMultiple, CheckoutSubSingle, ForgotPasswordForm, ProductList, ProductEditForm, UserEditForm, UserList, CategoryList, CategoryDetailsEditForm, CategoryForm, EmailConfirmation, GuestUserBuilder, LoginForm, ProductDetails, ProductFormData, RegisterForm, ResetPasswordForm, UserDetails, ShoppingCartBuilder, SubscriptionProducts, SubscriptionCartBuilder, AuthShowProducts } from './utils/lazy-loading';
+import { Admin, AdminHome, AdminSubProducts, UserEditAdminForm, UserBlockAdmin, CheckoutRegMultiple, CheckoutRegSingle, CheckoutSubMultiple, CheckoutSubSingle, ForgotPasswordForm, ProductList, ProductEditForm, UserEditForm, UserList, CategoryList, CategoryDetailsEditForm, CategoryForm, EmailConfirmation, GuestUserBuilder, LoginForm, LoginOTP, ProductDetails, ProductFormData, RegisterForm, ResetPasswordForm, UserDetails, ShoppingCartBuilder, SubscriptionProducts, SubscriptionCartBuilder, AuthShowProducts } from './utils/lazy-loading';
 
 
 const router = createBrowserRouter([
@@ -22,6 +22,7 @@ const router = createBrowserRouter([
                   { path: 'email/confirm/:token', element: <EmailConfirmation /> },
                   { path: 'cart/guest', element: <GuestUserBuilder /> },
                   { path: 'login', element: <LoginForm /> },
+                  { path: 'otp/2fa/:userId', element: <LoginOTP /> },
                   { path: 'forgot/password', element: <ForgotPasswordForm/> },
                   { path: 'password/reset/:token', element: <ResetPasswordForm/> },
                   { path: 'register', element: <RegisterForm /> },

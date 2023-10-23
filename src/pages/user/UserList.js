@@ -7,7 +7,7 @@ import { getAllUsers } from '../../services/user.service';
 import { deleteUserByAdmin, clearHandler, locationHandler } from '../../services/admin.service';
 import { tokenRenewalHandler } from '../../utils/tokenRefresh';
 import { toast } from 'react-toastify';
-import { adminEmail } from '../vars/common';
+import { adminEmail } from '../../vars/common';
 
 const UserList = () => {
     let [userObj, setUsers] = useState({ users: [] });

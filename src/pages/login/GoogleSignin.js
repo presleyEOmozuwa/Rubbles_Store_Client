@@ -19,7 +19,7 @@ const GoogleSignin = () => {
             }
 
             console.log(payload)
-            const val = await axios.post(`${baseUrl}/api/google-signin`, payload);
+            const val = await axios.post(`${baseUrl}/api/google-signin`, { payload: payload });
             console.log("User successfully logged in");
 
             if (val && val?.data.status === "login successful") {

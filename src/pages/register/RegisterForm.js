@@ -6,6 +6,7 @@ import './Register.css'
 import { toast } from 'react-toastify';
 import { host } from '../../utils/base-endpoint';
 import { registerAdminUser, registerUser } from '../../services/user.service';
+import { adminEmail } from '../../vars/common'
 
 const RegisterForm = () => {
     let { baseUrl } = host;
@@ -33,8 +34,8 @@ const RegisterForm = () => {
         }
         console.log(payload)
 
-        if (payload.email === "presleyomozuwa90@gmail.com") {
-            registerAdminUser(`${baseUrl}/api/register/admin`, payload).then((res) => {
+        if (payload.email === adminEmail()) {
+            registerAdminUser(`${baseUrl}/api/register/admin`, { payload: payload }).then((res) => {
                 console.log(res)
                 onSubmitProps.resetForm()
                 navigate('/login');
@@ -47,7 +48,7 @@ const RegisterForm = () => {
             });
         }
         else {
-            registerUser(`${baseUrl}/api/register/payload`, payload, { withCredentials: true }).then((res) => {
+            registerUser(`${baseUrl}/api/register/payload`, { payload: payload }, { withCredentials: true }).then((res) => {
                 console.log(res.data.isRegistered)
                 if (res && res.data.isRegistered) {
                     onSubmitProps.resetForm()

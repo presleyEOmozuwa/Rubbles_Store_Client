@@ -7,9 +7,9 @@ import { toast } from 'react-toastify';
 import './ProfileSettings.css';
 
 const ForgotPasswordForm = () => {
-    let { baseUrl } = host;
+    const { baseUrl } = host;
 
-    let initialValues = {
+    const initialValues = {
         email: ''
     };
 

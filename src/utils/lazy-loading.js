@@ -26,6 +26,8 @@ export const GuestUserBuilder = lazy(() => import('../pages/guest-user/GuestUser
 
 export const ForgotPasswordForm = lazy(() => import('../pages/profile-settings/ForgotPasswordForm'));
 
+export const LoginOTP = lazy(() => import('../pages/profile-settings/LoginOTP'));
+
 export const ProductList = lazy(() => import('../pages/product/ProductList'));
 
 export const UserList = lazy(() => import('../pages/user/UserList'));
@@ -43,8 +45,6 @@ export const CategoryForm = lazy(() => import('../pages/category/CategoryForm'))
 export const EmailConfirmation = lazy(() => import('../pages/profile-settings/EmailConfirmation'));
 
 export const LoginForm = lazy(() => import('../pages/login/LoginForm'));
-
-export const LoginOTP = lazy(() => import('../pages/profile-settings/LoginOTP'));
 
 export const ProductDetails = lazy(() => import('../pages/product/ProductDetails'));
 

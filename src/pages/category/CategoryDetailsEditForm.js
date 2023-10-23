@@ -22,7 +22,7 @@ const CategoryDetailsEditForm = () => {
 
     // GET A CATEGORY
     useEffect(() => {
-        getCategory(`${baseUrl}/api/category-details/${categoryId}`, { headers: httptoken(getToken("access_token")) }).then((res) => {
+        getCategory(`${baseUrl}/api/category/${categoryId}`, { headers: httptoken(getToken("access_token")) }).then((res) => {
             
             if (res && res.data.category) {
                 setCategory((state) => {
@@ -91,7 +91,7 @@ const CategoryDetailsEditForm = () => {
                                     ...prev,
                                     catName: event.target.value
                                 }
-                            })} className='form-control rounded-0' id='categoryName' type='text' value={catName} />
+                            })} className='form-control rounded-0' id='categoryName' type='text' value={catName} readOnly/>
                         </div>
                         <div className='form-group mb-3'>
                             <label htmlFor='des'>Description</label>
