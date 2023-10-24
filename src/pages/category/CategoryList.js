@@ -42,7 +42,7 @@ const CategoryList = () => {
             }
         });
 
-    }, [JSON.stringify(categories), deletedCategory._id, baseUrl]);
+    }, [JSON.stringify(categories), httptoken, getToken, setToken, deletedCategory._id, baseUrl, navigate]);
 
 
     const handleDelete = async (event) => {

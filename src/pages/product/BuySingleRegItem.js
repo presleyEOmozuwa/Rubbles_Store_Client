@@ -15,7 +15,8 @@ const SingleRegularItem = ({ cartItems }) => {
     const { baseUrl } = host;
 
 
-    const handleBuyNow = async () => {
+    const handleBuyNow = async (event) => {
+        event.preventDefault();
         if (!getToken("access_token")) {
             toast.info("Login to continue");
         }
@@ -41,7 +42,7 @@ const SingleRegularItem = ({ cartItems }) => {
 
     return (
         <>
-            <button className='border px-4 py-1 ms-2 bg-danger text-white shadow' onClick={() => handleBuyNow()}>BuyNow</button>
+            <button className='border px-4 py-1 ms-2 bg-danger text-white shadow' onClick={(e) => handleBuyNow(e)}>BuyNow</button>
         </>
     );
 };

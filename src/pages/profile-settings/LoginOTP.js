@@ -35,7 +35,7 @@ const LoginOTP = () => {
         }
         console.log(payload);
         
-        OTPHandler(`${baseUrl}/api/otp-code/payload`, { payload: payload }).then((res) => {
+        OTPHandler(`${baseUrl}/api/otp-code`, { payload: payload }).then((res) => {
             if (res && res?.data.status === "login successful") {
                 onSubmitProps.resetForm();
                 

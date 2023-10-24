@@ -29,7 +29,6 @@ const ProductFormData = () => {
         price: 0,
         priceId: '',
         coupon: 0,
-        newPrice: 0,
         stockQty: 0,
         des: '',
         imageUrl: '',
@@ -38,27 +37,28 @@ const ProductFormData = () => {
     }
 
     const onSubmit = async (payload, onSubmitProps) => {
-        const token = getToken("access_token");
-        createProduct(`${baseUrl}/api/product-form/payload`, payload, { headers: httptoken(token) }).then((res) => {
-            console.log(res.data);
-            if (res && res.data.status === "product successfully created") {
-                onSubmitProps.resetForm();
-                navigate("/admin/productlist");
-            }
-        }).catch(async (err) => {
-            console.log(err);
-            const { error } = err.response.data;
-            if (err.response) {
-                if (error === "access token expired") {
-                    await tokenRenewalHandler(navigate, baseUrl, getToken, setToken, toast);
-                }
-            }
-        });
+        console.log(payload);
+        // const token = getToken("access_token");
+        // createProduct(`${baseUrl}/api/product-form/payload`, { payload: payload }, { headers: httptoken(token) }).then((res) => {
+        //     console.log(res.data);
+        //     if (res && res.data.status === "product successfully created") {
+        //         onSubmitProps.resetForm();
+        //         navigate("/admin/productlist");
+        //     }
+        // }).catch(async (err) => {
+        //     console.log(err);
+        //     const { error } = err.response.data;
+        //     if (err.response) {
+        //         if (error === "access token expired") {
+        //             await tokenRenewalHandler(navigate, baseUrl, getToken, setToken, toast);
+        //         }
+        //     }
+        // });
     }
 
     const validationSchema = Yup.object({
         prodName: Yup.string().required("name field is required"),
-        price: Yup.string().required("price field is required"),
+        price: Yup.number().required("price field is required").min(1, "price must be greater than zero"),
         des: Yup.string().required("description field is required"),
         imageUrl: Yup.string().required("image url field is required"),
         typeOfItem: Yup.string().required("type of item required")
@@ -91,14 +91,14 @@ const ProductFormData = () => {
 
         });
 
-    }, [JSON.stringify(categoryArray), httptoken, getToken, baseUrl]);
+    }, [JSON.stringify(categoryArray), httptoken, getToken, setToken, navigate, baseUrl]);
 
 
     return (
-        <div className='container'>
+        <div className='container mt-5'>
             <div className='row'>
-                <div className='col-lg-3'></div>
-                <div className='col-lg-6'>
+                <div className='col-lg-4'></div>
+                <div className='col-lg-5 border p-4 shadow'>
                     <Formik
                         initialValues={initialValues}
                         onSubmit={onSubmit}
@@ -108,12 +108,12 @@ const ProductFormData = () => {
                             const handleCategory = (event) => {
                                 const { target } = event;
                                 const { checked, value } = target;
-                                formik.values.categories.forEach((obj) => {
-                                    if(obj._id === value){
-                                        obj.ischecked = checked;
-                                        return;
-                                    }
-                                })
+                                console.log(formik.values.categories);
+                                
+                            }
+
+                            const handleTypeOfItem = async (event) => {
+                                formik.values.typeOfItem = event.target.value;
                             }
 
 
@@ -201,7 +201,7 @@ const ProductFormData = () => {
                                             }}
                                         </Field>
                                     </div>
-                                    <div className='form-group mb-3'>
+                                    <div className='form-group mb-4'>
                                         <label htmlFor='imageUrl'>ImageUrl</label>
                                         <Field name="imageUrl">
                                             {(props) => {
@@ -215,16 +215,23 @@ const ProductFormData = () => {
                                             }}
                                         </Field>
                                     </div>
-                                    <div className='form-group mb-3'>
-                                        <label htmlFor='typeOfItem'>TypeOfItem</label>
-                                        <Field as="select" name="typeOfItem">
+                                    <div className='form-group mb-4'>
+                                        <label className='me-2' htmlFor='typeOfItem'>TypeOfItem</label>
+                                        <Field name="typeOfItem">
                                             {(props) => {
                                                 const { field, meta } = props;
+                                                const arr = ["select", "regular", "subscription"]
+
                                                 return (
                                                     <>
-                                                        <option value="Regular">Regular</option>
-                                                        <option value="Subscription">Subscription</option>
-                                                        {meta.touched && meta.error ? <p className='text-danger'>{meta.error}</p> : null}
+                                                        <select onChange={(e) => handleTypeOfItem(e)} id="typeOfItem">
+                                                        {arr.map((t, i) => {
+                                                            return (
+                                                                <option key={i} value={t}>{t}</option>
+                                                            )
+                                                        })}
+                                                        </select>
+                                                        {meta.touched && meta.error ? <p className='text-danger'>{meta.error}</p> : null} 
                                                     </>
                                                 )
                                             }}
@@ -233,10 +240,10 @@ const ProductFormData = () => {
                                     <div className='form-check mb-3'>
                                         {categoryArray.map((cat, i) => {
                                             return (
-                                                <React.Fragment key={i}>
-                                                    <input className="form-check-input" type="checkbox" id={cat.catName} defaultChecked={cat.ischecked} onChange={(e) => handleCategory(e)} value={cat._id}/>
+                                                <div key={i}>
+                                                    <input className="form-check-input me-2" type="checkbox" id={cat.catName} defaultChecked={cat.ischecked} onChange={(e) => handleCategory(e)} value={cat._id}/>
                                                     <label htmlFor={cat.catName}>{cat.catName}</label>
-                                                </React.Fragment>
+                                                </div>
                                             )
                                         })}
                                     </div>
