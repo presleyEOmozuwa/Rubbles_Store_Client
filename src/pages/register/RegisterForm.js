@@ -48,7 +48,7 @@ const RegisterForm = () => {
             });
         }
         else {
-            registerUser(`${baseUrl}/api/register/payload`, { payload: payload }, { withCredentials: true }).then((res) => {
+            registerUser(`${baseUrl}/api/register`, { payload: payload }, { withCredentials: true }).then((res) => {
                 console.log(res.data.isRegistered)
                 if (res && res.data.isRegistered) {
                     onSubmitProps.resetForm()

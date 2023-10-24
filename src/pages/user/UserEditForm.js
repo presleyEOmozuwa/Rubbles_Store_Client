@@ -32,10 +32,10 @@ const UserEditForm = () => {
     const onSubmit = async (payload) => {
         console.log(payload)
         const token = getToken("access_token");
-        updateUser(`${baseUrl}/api/user-update`, { payload: payload }, { headers: httptoken(token) }).then((res) => {
+        updateUser(`${baseUrl}/api/update/user`, { payload: payload }, { headers: httptoken(token) }).then((res) => {
             console.log(res.data);
-            if (res && res.data.status === "isUpdated") {
-                navigate('/userlist')
+            if (res && res.data.status === "user updated successfully") {
+                navigate('/auth/user')
             }
         }).catch( async (err) => {
             console.log(err);
@@ -72,11 +72,11 @@ const UserEditForm = () => {
             }
         });
 
-    }, [httptoken, getToken, baseUrl]);
+    }, [httptoken, setToken, getToken, baseUrl, navigate]);
 
 
     return (
-        <div className='container'>
+        <div className='container mt-5'>
             <div className='row'>
                 <div className='col-sm-4'></div>
                 <div className='col-sm-4 border p-4 shadow-lg mt-2'>

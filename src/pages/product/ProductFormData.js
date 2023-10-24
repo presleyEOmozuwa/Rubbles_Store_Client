@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import './Product.css'
 import { toast } from 'react-toastify';
@@ -13,8 +13,9 @@ import { tokenRenewalHandler } from '../../utils/tokenRefresh';
 
 const ProductFormData = () => {
     const [categoryObj, setCategoryObj] = useState({ categoryArray: [] });
-
     const { categoryArray } = categoryObj;
+
+    const [levels, setLevels] = useState([...categoryArray]);
 
     const auth = useAuth();
     let { httptoken, getToken, setToken } = auth;
@@ -33,8 +34,9 @@ const ProductFormData = () => {
         des: '',
         imageUrl: '',
         typeOfItem: '',
-        categories: [...categoryArray]
+        categories: []
     }
+    
 
     const onSubmit = async (payload, onSubmitProps) => {
         console.log(payload);
@@ -103,13 +105,21 @@ const ProductFormData = () => {
                         initialValues={initialValues}
                         onSubmit={onSubmit}
                         validationSchema={validationSchema}
+                        enableReinitialize={true}
                     >
                         {(formik) => {
                             const handleCategory = (event) => {
                                 const { target } = event;
                                 const { checked, value } = target;
-                                console.log(formik.values.categories);
-                                
+                                const modified = levels.map((c) => {
+                                    if(c.catName === value){
+                                        c.ischecked = checked;
+                                    }
+                                    return c;
+                                })
+
+                                formik.values.categories = modified;
+
                             }
 
                             const handleTypeOfItem = async (event) => {
@@ -126,7 +136,7 @@ const ProductFormData = () => {
                                                 const { field, meta } = props;
                                                 return (
                                                     <>
-                                                        <input className='form-control' type="text" id="prodName" {...field}/>
+                                                        <input className='form-control' type="text" id="prodName" {...field} />
                                                         {meta.touched && meta.error ? <p className='text-danger'>{meta.error}</p> : null}
                                                     </>
                                                 )
@@ -140,7 +150,7 @@ const ProductFormData = () => {
                                                 const { field, meta } = props;
                                                 return (
                                                     <>
-                                                        <input className='form-control' type="number" id="price" {...field}/>
+                                                        <input className='form-control' type="number" id="price" {...field} />
                                                         {meta.touched && meta.error ? <p className='text-danger'>{meta.error}</p> : null}
                                                     </>
                                                 )
@@ -154,7 +164,7 @@ const ProductFormData = () => {
                                                 const { field, meta } = props;
                                                 return (
                                                     <>
-                                                        <input className='form-control'  type="text" id="priceId" {...field}/>
+                                                        <input className='form-control' type="text" id="priceId" {...field} />
                                                         {meta.touched && meta.error ? <p className='text-danger'>{meta.error}</p> : null}
                                                     </>
                                                 )
@@ -168,7 +178,7 @@ const ProductFormData = () => {
                                                 const { field, meta } = props;
                                                 return (
                                                     <>
-                                                        <input className='form-control'  type="number" id="coupon" {...field}/>
+                                                        <input className='form-control' type="number" id="coupon" {...field} />
                                                     </>
                                                 )
                                             }}
@@ -181,7 +191,7 @@ const ProductFormData = () => {
                                                 const { field, meta } = props;
                                                 return (
                                                     <>
-                                                        <input className='form-control'  type="number" id="stockQty" {...field}/>
+                                                        <input className='form-control' type="number" id="stockQty" {...field} />
                                                     </>
                                                 )
                                             }}
@@ -194,7 +204,7 @@ const ProductFormData = () => {
                                                 const { field, meta } = props;
                                                 return (
                                                     <>
-                                                        <input className='form-control'  type="text" id="des" {...field}/>
+                                                        <input className='form-control' type="text" id="des" {...field} />
                                                         {meta.touched && meta.error ? <p className='text-danger'>{meta.error}</p> : null}
                                                     </>
                                                 )
@@ -208,7 +218,7 @@ const ProductFormData = () => {
                                                 const { field, meta } = props;
                                                 return (
                                                     <>
-                                                        <input className='form-control'  type="text" id="imageUrl" {...field}/>
+                                                        <input className='form-control' type="text" id="imageUrl" {...field} />
                                                         {meta.touched && meta.error ? <p className='text-danger'>{meta.error}</p> : null}
                                                     </>
                                                 )
@@ -216,7 +226,7 @@ const ProductFormData = () => {
                                         </Field>
                                     </div>
                                     <div className='form-group mb-4'>
-                                        <label className='me-2' htmlFor='typeOfItem'>TypeOfItem</label>
+                                        <label className='me-2' htmlFor='typeOfItem'>TypeOfItem :</label>
                                         <Field name="typeOfItem">
                                             {(props) => {
                                                 const { field, meta } = props;
@@ -225,28 +235,46 @@ const ProductFormData = () => {
                                                 return (
                                                     <>
                                                         <select onChange={(e) => handleTypeOfItem(e)} id="typeOfItem">
-                                                        {arr.map((t, i) => {
-                                                            return (
-                                                                <option key={i} value={t}>{t}</option>
-                                                            )
-                                                        })}
+                                                            {arr.map((t, i) => {
+                                                                return (
+                                                                    <option key={i} value={t}>{t}</option>
+                                                                )
+                                                            })}
                                                         </select>
-                                                        {meta.touched && meta.error ? <p className='text-danger'>{meta.error}</p> : null} 
+                                                        {meta.touched && meta.error ? <p className='text-danger'>{meta.error}</p> : null}
                                                     </>
                                                 )
                                             }}
                                         </Field>
                                     </div>
-                                    <div className='form-check mb-3'>
+                                    <div className='form-check'>
+                                        <FieldArray name='categories'>
+                                            {(props) => {
+                                                return (
+                                                    <>
+                                                        {categoryArray.map((cat, i) => {
+                                                            return (
+                                                                <div key={i}>
+                                                                    <input className="form-check-input me-2" type="checkbox" id={cat.catName} defaultChecked={cat.ischecked} onChange={(e) => handleCategory(e)} value={cat.catName}/>
+                                                    <label htmlFor={cat.catName}>{cat.catName}</label>
+                                                                </div>
+                                                            )
+                                                        })}
+                                                    </>
+                                                )
+                                            }}
+                                        </FieldArray>
+                                    </div>
+                                    {/* <div className='form-check mb-3'>
                                         {categoryArray.map((cat, i) => {
                                             return (
                                                 <div key={i}>
-                                                    <input className="form-check-input me-2" type="checkbox" id={cat.catName} defaultChecked={cat.ischecked} onChange={(e) => handleCategory(e)} value={cat._id}/>
+                                                    <input className="form-check-input me-2" type="checkbox" id={cat.catName} defaultChecked={cat.ischecked} onChange={(e) => handleCategory(e)} value={cat.catName}/>
                                                     <label htmlFor={cat.catName}>{cat.catName}</label>
                                                 </div>
                                             )
                                         })}
-                                    </div>
+                                    </div> */}
                                     <div className='text-center'>
                                         <button className='btn btn-primary rounded-0 shadow px-3 fw-semibold' type='submit'>Submit</button>
                                     </div>

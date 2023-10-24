@@ -7,9 +7,9 @@ import { totalHandler } from '../../utils/helper';
 import './GuestUser.css';
 
 const GuestUser = ({ products, initAmount, setDeletedItem }) => {
-    let [totalAmount, setTotalAmount] = useState(0);
+    const [totalAmount, setTotalAmount] = useState(0);
 
-    let { baseUrl } = host;
+    const { baseUrl } = host;
 
 
     const handleQty = (event, productId) => {
@@ -52,8 +52,7 @@ const GuestUser = ({ products, initAmount, setDeletedItem }) => {
 
     if (products.length === 0) {
         return (
-            <div className='container-fluid mt-3 p-3 vh-100'>
-
+            <div className='container-fluid mt-3 p-3 vh-100 shared'>
                 <div className='row'>
                     <div className='col-lg-9'>
                         <h1 className='fw-light text-center pt-2 align-self-center'>My Shopping Cart </h1>
@@ -86,7 +85,7 @@ const GuestUser = ({ products, initAmount, setDeletedItem }) => {
     }
     else if (products.length > 0) {
         return (
-            <div className='container-fluid mt-3 p-3 vh-100'>
+            <div className='container-fluid mt-3 p-3 vh-100 shared'>
                 <div className='row'>
                     <div className='col-lg-9'>
                         <h1 className='fw-light text-center pt-2 align-self-center'>My Shopping Cart </h1>

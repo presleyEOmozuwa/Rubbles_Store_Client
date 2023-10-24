@@ -71,7 +71,7 @@ const UserDetails = () => {
                     <h4 className='text-muted'> Profile Info</h4>
                     <div className='p-3 shadow-lg'>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae fuga laudantium repellendus consequatur ratione eum</p>
-                        <a className='fw-bold' href='#'>Profile</a>
+                        <a className='fw-bold' href='/auth/user/update'>Profile</a>
                     </div>
                 </div>
                 <div className='col-lg-4 text-center'>
