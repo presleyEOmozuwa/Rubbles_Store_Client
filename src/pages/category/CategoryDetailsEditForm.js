@@ -8,17 +8,17 @@ import { tokenRenewalHandler } from '../../utils/tokenRefresh';
 import { toast } from 'react-toastify';
 
 const CategoryDetailsEditForm = () => {
-    let [category, setCategory] = useState({ id: '', catName: '', des: '' });
-    let { _id, catName, des } = category;
+    const [category, setCategory] = useState({ catName: '', des: '' });
+    const { catName, des } = category;
 
     const auth = useAuth();
-    let { httptoken, getToken, setToken } = auth;
+    const { httptoken, getToken, setToken } = auth;
 
-    let params = useParams();
-    let { categoryId } = params;
+    const params = useParams();
+    const { categoryId } = params;
 
     const navigate = useNavigate();
-    let { baseUrl } = host;
+    const { baseUrl } = host;
 
     // GET A CATEGORY
     useEffect(() => {
@@ -29,7 +29,6 @@ const CategoryDetailsEditForm = () => {
                     let data = res.data.category;
                     const clone = {
                         ...state,
-                        id: data._id,
                         catName: data.catName,
                         des: data.description
                     }
@@ -46,7 +45,7 @@ const CategoryDetailsEditForm = () => {
                 }
             }
         });
-    }, [categoryId, httptoken, getToken, baseUrl])
+    }, [categoryId, httptoken, setToken, getToken, baseUrl, navigate])
 
     
     // REQUEST TO UPDATE CATEGORY DATA
@@ -58,10 +57,10 @@ const CategoryDetailsEditForm = () => {
         }
         console.log(payload)
 
-        updateCategory(`${baseUrl}/api/category-details-update/payload`, payload, { headers: httptoken(getToken("access_token")) }).then((res) => {
+        updateCategory(`${baseUrl}/api/category/update`, { payload: payload }, { headers: httptoken(getToken("access_token")) }).then((res) => {
             
-            if (res && res.data.status === "category update successful") {
-                console.log(res.data.upDatedCategory);
+            if (res && res.data.status === "category updated successful") {
+                console.log(res.data.status);
                 navigate('/admin/categorylist');
             }
         
@@ -82,7 +81,7 @@ const CategoryDetailsEditForm = () => {
             <div className='row'>
                 <div className='col-sm-4'></div>
                 <div className='col-sm-4 border mt-5 p-4 sect'>
-                    <form onSubmit={submitHandler}>
+                    <form onSubmit={(e) => submitHandler(e)}>
                         <input type='hidden' />
                         <div className='form-group mb-3'>
                             <label htmlFor='categoryName'>Category Name</label>

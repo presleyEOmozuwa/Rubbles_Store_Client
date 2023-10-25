@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Formik, Form, Field, FieldArray } from 'formik';
+import { useNavigate } from 'react-router-dom';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import './Product.css'
 import { toast } from 'react-toastify';
@@ -14,8 +14,6 @@ import { tokenRenewalHandler } from '../../utils/tokenRefresh';
 const ProductFormData = () => {
     const [categoryObj, setCategoryObj] = useState({ categoryArray: [] });
     const { categoryArray } = categoryObj;
-
-    const [levels, setLevels] = useState([...categoryArray]);
 
     const auth = useAuth();
     let { httptoken, getToken, setToken } = auth;
@@ -36,26 +34,27 @@ const ProductFormData = () => {
         typeOfItem: '',
         categories: []
     }
-    
+
+
 
     const onSubmit = async (payload, onSubmitProps) => {
         console.log(payload);
-        // const token = getToken("access_token");
-        // createProduct(`${baseUrl}/api/product-form/payload`, { payload: payload }, { headers: httptoken(token) }).then((res) => {
-        //     console.log(res.data);
-        //     if (res && res.data.status === "product successfully created") {
-        //         onSubmitProps.resetForm();
-        //         navigate("/admin/productlist");
-        //     }
-        // }).catch(async (err) => {
-        //     console.log(err);
-        //     const { error } = err.response.data;
-        //     if (err.response) {
-        //         if (error === "access token expired") {
-        //             await tokenRenewalHandler(navigate, baseUrl, getToken, setToken, toast);
-        //         }
-        //     }
-        // });
+        const token = getToken("access_token");
+        createProduct(`${baseUrl}/api/product-form/payload`, { payload: payload }, { headers: httptoken(token) }).then((res) => {
+            console.log(res.data);
+            if (res && res.data.status === "product successfully created") {
+                // onSubmitProps.resetForm();
+                navigate("/admin/productlist");
+            }
+        }).catch(async (err) => {
+            console.log(err);
+            const { error } = err.response.data;
+            if (err.response) {
+                if (error === "access token expired") {
+                    await tokenRenewalHandler(navigate, baseUrl, getToken, setToken, toast);
+                }
+            }
+        });
     }
 
     const validationSchema = Yup.object({
@@ -69,14 +68,13 @@ const ProductFormData = () => {
     useEffect(() => {
         const token = getToken("access_token");
         getAllCategories(`${baseUrl}/api/category-list`, { headers: httptoken(token) }).then((res) => {
-            console.log(res.data);
-            if (res && res.data.categoryList) {
+            // console.log(res.data);
+            if (res && res.data) {
                 setCategoryObj((state) => {
-                    const clone = {
+                    return {
                         ...state,
                         categoryArray: res.data.categoryList
                     }
-                    return clone;
                 });
             }
         }).catch(async (err) => {
@@ -111,15 +109,15 @@ const ProductFormData = () => {
                             const handleCategory = (event) => {
                                 const { target } = event;
                                 const { checked, value } = target;
-                                const modified = levels.map((c) => {
+                                const modified = [...categoryArray];
+                                modified.forEach((c) => {
                                     if(c.catName === value){
                                         c.ischecked = checked;
                                     }
-                                    return c;
                                 })
-
                                 formik.values.categories = modified;
-
+                                console.log(checked)
+                                console.log(value)
                             }
 
                             const handleTypeOfItem = async (event) => {
@@ -247,34 +245,16 @@ const ProductFormData = () => {
                                             }}
                                         </Field>
                                     </div>
-                                    <div className='form-check'>
-                                        <FieldArray name='categories'>
-                                            {(props) => {
-                                                return (
-                                                    <>
-                                                        {categoryArray.map((cat, i) => {
-                                                            return (
-                                                                <div key={i}>
-                                                                    <input className="form-check-input me-2" type="checkbox" id={cat.catName} defaultChecked={cat.ischecked} onChange={(e) => handleCategory(e)} value={cat.catName}/>
-                                                    <label htmlFor={cat.catName}>{cat.catName}</label>
-                                                                </div>
-                                                            )
-                                                        })}
-                                                    </>
-                                                )
-                                            }}
-                                        </FieldArray>
-                                    </div>
-                                    {/* <div className='form-check mb-3'>
+                                    <div className='form-check mb-3'>
                                         {categoryArray.map((cat, i) => {
                                             return (
                                                 <div key={i}>
-                                                    <input className="form-check-input me-2" type="checkbox" id={cat.catName} defaultChecked={cat.ischecked} onChange={(e) => handleCategory(e)} value={cat.catName}/>
+                                                    <input className="form-check-input me-2" type="checkbox" id={cat.catName} defaultChecked={cat.ischecked} onChange={(e) => handleCategory(e)} value={cat.catName} />
                                                     <label htmlFor={cat.catName}>{cat.catName}</label>
                                                 </div>
                                             )
                                         })}
-                                    </div> */}
+                                    </div>
                                     <div className='text-center'>
                                         <button className='btn btn-primary rounded-0 shadow px-3 fw-semibold' type='submit'>Submit</button>
                                     </div>
