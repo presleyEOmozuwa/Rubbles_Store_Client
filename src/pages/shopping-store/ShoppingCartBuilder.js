@@ -15,20 +15,20 @@ const ShoppingCartBuilder = () => {
     const [deletedProduct, setDeletedProduct] = useState({ });
 
     const auth = useAuth();
-    let { httptoken, getToken, setToken } = auth;
+    const { httptoken, getToken, setToken } = auth;
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
-    let { baseUrl } = host;
+    const { baseUrl } = host;
 
 
 
     useEffect(() => {
         const token = getToken("access_token");
         getCartItems(`${baseUrl}/api/cart`, { headers: httptoken(token) }).then((res) => {
-            console.log(res);
+            console.log(res.data.cart.products);
             if (res && res.data.cart) {
-                const cartProducts = res.data.cart?.Products;
+                const cartProducts = res.data.cart?.products;
                 setCartObj((state) => {
                     return {
                         ...state,

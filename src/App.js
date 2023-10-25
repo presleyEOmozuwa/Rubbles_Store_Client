@@ -10,7 +10,7 @@ import NoMatch from './pages/no-match/NoMatch';
 import { AuthProvider } from './context/AuthContext';
 import { LayoutAdmin, LayoutAuthUser, LayoutPublic } from './components/auth-layout/AuthLayout';
 
-import { Admin, AdminHome, AdminSubProducts, UserEditAdminForm, UserBlockAdmin, CheckoutRegMultiple, CheckoutRegSingle, CheckoutSubMultiple, CheckoutSubSingle, ForgotPasswordForm, ProductList, ProductEditForm, UserEditForm, UserList, CategoryList, CategoryDetailsEditForm, CategoryForm, EmailConfirmation, GuestUserBuilder, LoginForm, LoginOTP, ProductDetails, ProductFormData, RegisterForm, ResetPasswordForm, UserDetails, ShoppingCartBuilder, SubscriptionProducts, SubscriptionCartBuilder, AuthShowProducts } from './utils/lazy-loading';
+import { Admin, AdminHome, AdminSubProducts, UserEditAdminForm, UserBlockAdmin, CheckoutSuccessReg, CheckoutSuccessSub, CheckoutFailureRegular, CheckoutFailureSub, ForgotPasswordForm, ProductList, ProductEditForm, UserEditForm, UserList, CategoryList, CategoryDetailsEditForm, CategoryForm, EmailConfirmation, GuestUserBuilder, LoginForm, LoginOTP, ProductDetails, ProductFormData, RegisterForm, ResetPasswordForm, UserDetails, ShoppingCartBuilder, SubscriptionProducts, SubscriptionCartBuilder, AuthShowProducts } from './utils/lazy-loading';
 
 
 const router = createBrowserRouter([
@@ -60,10 +60,10 @@ const router = createBrowserRouter([
                   { path: 'shoppingcart', element: <ShoppingCartBuilder /> },
                   { path: 'sub/products', element: <SubscriptionProducts /> },
                   { path: 'sub/shoppingcart', element: <SubscriptionCartBuilder /> },
-                  { path: 'regular/multiple/checkout/success/:session_id', element: <CheckoutRegMultiple /> },
-                  { path: 'regular/single/checkout/success/:session_id', element: <CheckoutRegSingle /> },
-                  { path: 'sub/multiple/checkout/success/:session_id', element: <CheckoutSubMultiple /> },
-                  { path: 'sub/single/checkout/success/:session_id', element: <CheckoutSubSingle /> },
+                  { path: 'checkout/regular/success/:session_id', element: <CheckoutSuccessReg /> },
+                  { path: 'checkout/sub/success/:session_id', element: <CheckoutSuccessSub /> },
+                  { path: 'checkout/failure/regular/:session_id', element: <CheckoutFailureRegular /> },
+                  { path: 'checkout/failure/sub/:session_id', element: <CheckoutFailureSub /> },
                   { path: 'show', element: <AuthShowProducts /> },
             ]
       }

@@ -68,9 +68,9 @@ const AddToCart = ({ productId, typeOfItem }) => {
 
     return (
         <>
-            <div className='text-center mt-3'>
-                <button className='btn btn-primary rounded-0 shadow px-5 fw-bold' type='submit' onClick={(e) => handleAddtoCart(e)}>Add to Cart</button>
-            </div>
+            <span className='mt-1'>
+                <button className='border px-4 py-1 ms-2 bg-primary text-white shadow' onClick={(e) => handleAddtoCart(e)}>Add to Cart</button>
+            </span>
         </>
     );
 };

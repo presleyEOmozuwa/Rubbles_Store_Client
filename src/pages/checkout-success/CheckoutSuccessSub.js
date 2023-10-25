@@ -7,7 +7,7 @@ import { tokenRenewalHandler } from '../../utils/tokenRefresh';
 import { toast } from 'react-toastify';
 
 
-const CheckoutSubMultiple = () => {
+const CheckoutSuccessSub = () => {
     let auth = useAuth();
     let { httptoken, getToken, setToken } = auth;
 
@@ -20,7 +20,7 @@ const CheckoutSubMultiple = () => {
     let navigate = useNavigate();
 
     useEffect(() => {
-        multipleSubHistory(`${baseUrl}/api/sub/checkout/success/multiple/${sessionId}`, { headers: httptoken(getToken("access_token")) }).then((res) => {
+        multipleSubHistory(`${baseUrl}/api/checkout/success/sub/${sessionId}`, { headers: httptoken(getToken("access_token")) }).then((res) => {
             if (res && res.data) {
                 console.log(sessionId);
             }
@@ -56,4 +56,4 @@ const CheckoutSubMultiple = () => {
     );
 };
 
-export default CheckoutSubMultiple;
+export default CheckoutSuccessSub;

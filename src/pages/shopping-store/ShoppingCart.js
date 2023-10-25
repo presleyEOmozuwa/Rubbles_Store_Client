@@ -154,7 +154,7 @@ const ShoppingCart = ({ products, initAmount, httptoken, getToken, setToken, set
                                     <span className='m-3 fw-bold'> ${p.newPrice} </span>
                                 </div>
                                 <span className='mx-3'>Quantity</span>
-                                <select className='me-5 ms-1 qty' onChange={(e) => handleQty(e, p.id)}>
+                                <select className='me-5 ms-1 qty' onChange={(e) => handleQty(e, p._id)}>
                                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((q, index) => {
                                         return (
                                             <option key={index} value={q}>{q}</option>

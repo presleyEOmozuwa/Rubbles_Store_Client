@@ -6,7 +6,7 @@ import { host } from '../../utils/base-endpoint';
 import { tokenRenewalHandler } from '../../utils/tokenRefresh';
 import { toast } from 'react-toastify';
 
-const CheckoutFailureMultiple = () => {
+const CheckoutFailureRegular = () => {
 
     let auth = useAuth();
     let { httptoken, getToken, setToken } = auth;
@@ -20,7 +20,7 @@ const CheckoutFailureMultiple = () => {
     let navigate = useNavigate();
 
     useEffect(() => {
-        checkoutFailureMultipleHandler(`${baseUrl}/api/checkout/failure/multiple/${sessionId}`, { headers: httptoken(getToken("access_token")) }).then((res) => {
+        checkoutFailureMultipleHandler(`${baseUrl}/api/checkout/failure/regular${sessionId}`, { headers: httptoken(getToken("access_token")) }).then((res) => {
             if (res && res.data) {
                 console.log(sessionId);
             }
@@ -42,7 +42,7 @@ const CheckoutFailureMultiple = () => {
             <div className='row'>
                 <div className='col-lg-4'></div>
                 <div className='col-lg-4'>
-                    <h2> Stripe Multiple Failure Page </h2>
+                    <h2> Stripe Failure Page For Regular Items </h2>
                 </div>
                 <div className='col-lg-4'></div>
             </div>
@@ -50,4 +50,4 @@ const CheckoutFailureMultiple = () => {
     );
 };
 
-export default CheckoutFailureMultiple;
+export default CheckoutFailureRegular;

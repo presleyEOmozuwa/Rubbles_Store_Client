@@ -45,7 +45,7 @@ const HomeProducts = () => {
                                 <p > <span className='fw-bold'>Price : </span>{product.price}</p>
                                 <p className='mb-4'> <span className='fw-bold'>Coupon : </span> {product.coupon}% off original price </p>
                                 <div className="d-grid gap-2 col-10 rounded-0 shadow mx-auto">
-                                    <button className="btn btn-primary" type="button" onClick={(e) => handleClick(e)} value={product.id}>Show Info</button>
+                                    <button className="btn btn-primary" type="button" onClick={(e) => handleClick(e)} value={product._id}>Show Info</button>
                                 </div>
 
                             </div>

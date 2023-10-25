@@ -10,17 +10,13 @@ export const UserBlockAdmin = lazy(() => import('../pages/admin/UserBlockAdmin')
 
 export const UserEditAdminForm = lazy(() => import('../pages/admin/UserEditAdminForm'));
 
-export const CheckoutRegMultiple = lazy(() => import('../pages/checkout-success/CheckoutRegMultiple'));
+export const CheckoutSuccessReg = lazy(() => import('../pages/checkout-success/CheckoutSuccessReg'));
 
-export const CheckoutRegSingle = lazy(() => import('../pages/checkout-success/CheckoutRegSingle'));
+export const CheckoutSuccessSub = lazy(() => import('../pages/checkout-success/CheckoutSuccessSub'));
 
-export const CheckoutSubMultiple = lazy(() => import('../pages/checkout-success/CheckoutSubMultiple'));
+export const CheckoutFailureRegular = lazy(() => import('../pages/checkout-failure/CheckoutFailureRegular'));
 
-export const CheckoutSubSingle = lazy(() => import('../pages/checkout-success/CheckoutSubSingle'));
-
-export const CheckoutFailureMultiple = lazy(() => import('../pages/checkout-failure/CheckoutFailureMultiple'));
-
-export const CheckoutFailureSingle = lazy(() => import('../pages/checkout-failure/CheckoutFailureSingle'));
+export const CheckoutFailureSub = lazy(() => import('../pages/checkout-failure/CheckoutFailureSub'));
 
 export const GuestUserBuilder = lazy(() => import('../pages/guest-user/GuestUserBuilder'));
 

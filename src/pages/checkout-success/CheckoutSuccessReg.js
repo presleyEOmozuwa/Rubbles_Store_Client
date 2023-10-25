@@ -7,7 +7,7 @@ import { checkoutSuccessMultiple } from '../../services/stripe.service'
 import { toast } from 'react-toastify';
 
 
-const CheckoutRegMultiple = () => {
+const CheckoutSuccessReg = () => {
     const [orderStore, setOrderStore] = useState({ order: {} });
     const { order } = orderStore;
 
@@ -45,7 +45,7 @@ const CheckoutRegMultiple = () => {
             return navigate("/auth/shoppingcart");
         }
 
-        checkoutSuccessMultiple(`${baseUrl}/api/regular/checkout/success/multiple/${sessionId}`, { headers: httptoken(getToken("access_token")) }).then((res) => {
+        checkoutSuccessMultiple(`${baseUrl}/api/checkout/success/regular/${sessionId}`, { headers: httptoken(getToken("access_token")) }).then((res) => {
             if (res && res.data) {
                 console.log(sessionId);
                 console.log(res.data.status);
@@ -130,4 +130,4 @@ const CheckoutRegMultiple = () => {
     );
 };
 
-export default CheckoutRegMultiple;
+export default CheckoutSuccessReg;

@@ -6,7 +6,7 @@ import { host } from '../../utils/base-endpoint';
 import { tokenRenewalHandler } from '../../utils/tokenRefresh';
 import { toast } from 'react-toastify';
 
-const CheckoutFailureSingle = () => {
+const CheckoutFailureSub = () => {
 
     let auth = useAuth();
     let { httptoken, getToken, setToken } = auth;
@@ -20,7 +20,7 @@ const CheckoutFailureSingle = () => {
     let navigate = useNavigate();
 
     useEffect(() => {
-        checkoutFailureSingleHandler(`${baseUrl}/api/checkout/failure/single/${sessionId}`, { headers: httptoken(getToken("access_token")) }).then((res) => {
+        checkoutFailureSingleHandler(`${baseUrl}/api/checkout/failure/sub/${sessionId}`, { headers: httptoken(getToken("access_token")) }).then((res) => {
             if (res && res.data) {
                 console.log(sessionId);
             }
@@ -42,7 +42,7 @@ const CheckoutFailureSingle = () => {
             <div className='row'>
                 <div className='col-lg-4'></div>
                 <div className='col-lg-4'>
-                    <h2> Stripe Single Failure Page </h2>
+                    <h2> Stripe Failure Page For Sub Items </h2>
                 </div>
                 <div className='col-lg-4'></div>
             </div>
@@ -50,4 +50,4 @@ const CheckoutFailureSingle = () => {
     );
 };
 
-export default CheckoutFailureSingle;
+export default CheckoutFailureSub ;
