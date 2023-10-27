@@ -28,7 +28,7 @@ const ShoppingCartBuilder = () => {
         getCartItems(`${baseUrl}/api/cart`, { headers: httptoken(token) }).then((res) => {
             console.log(res.data.cart.products);
             if (res && res.data.cart) {
-                const cartProducts = res.data.cart?.products;
+                const cartProducts = res.data.cart.products;
                 setCartObj((state) => {
                     return {
                         ...state,

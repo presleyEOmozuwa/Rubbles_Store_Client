@@ -8,16 +8,14 @@ import { toast } from 'react-toastify';
 
 
 const CheckoutSuccessSub = () => {
-    let auth = useAuth();
-    let { httptoken, getToken, setToken } = auth;
+    const auth = useAuth();
+    const { httptoken, getToken, setToken } = auth;
 
-    let { baseUrl } = host;
+    const { baseUrl } = host;
 
-    let { session_id } = useParams();
+    const { sessionId } = useParams();
 
-    let sessionId = session_id.substring(11);
-
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     useEffect(() => {
         multipleSubHistory(`${baseUrl}/api/checkout/success/sub/${sessionId}`, { headers: httptoken(getToken("access_token")) }).then((res) => {

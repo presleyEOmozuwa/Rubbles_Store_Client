@@ -60,10 +60,10 @@ const router = createBrowserRouter([
                   { path: 'shoppingcart', element: <ShoppingCartBuilder /> },
                   { path: 'sub/products', element: <SubscriptionProducts /> },
                   { path: 'sub/shoppingcart', element: <SubscriptionCartBuilder /> },
-                  { path: 'checkout/regular/success/:session_id', element: <CheckoutSuccessReg /> },
-                  { path: 'checkout/sub/success/:session_id', element: <CheckoutSuccessSub /> },
-                  { path: 'checkout/failure/regular/:session_id', element: <CheckoutFailureRegular /> },
-                  { path: 'checkout/failure/sub/:session_id', element: <CheckoutFailureSub /> },
+                  { path: 'checkout/regular/success/:sessionId', element: <CheckoutSuccessReg /> },
+                  { path: 'checkout/sub/success/:sessionId', element: <CheckoutSuccessSub /> },
+                  { path: 'checkout/failure/regular/:sessionId', element: <CheckoutFailureRegular /> },
+                  { path: 'checkout/failure/sub/:sessionId', element: <CheckoutFailureSub /> },
                   { path: 'show', element: <AuthShowProducts /> },
             ]
       }

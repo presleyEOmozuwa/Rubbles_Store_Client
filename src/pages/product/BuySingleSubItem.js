@@ -32,6 +32,9 @@ const SingleSubscriptionItem = ({ cartItems }) => {
                     if (error === "access token expired") {
                         await tokenRenewalHandler(navigate, baseUrl, getToken, setToken, toast);
                     }
+                    if(error === "you cannot subscribe to the same item twice"){
+                        toast.info(error);
+                    }
                 }
             });
             

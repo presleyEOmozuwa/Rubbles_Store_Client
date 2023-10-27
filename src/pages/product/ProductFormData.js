@@ -42,9 +42,13 @@ const ProductFormData = () => {
         const token = getToken("access_token");
         createProduct(`${baseUrl}/api/product-form/payload`, { payload: payload }, { headers: httptoken(token) }).then((res) => {
             console.log(res.data);
-            if (res && res.data.status === "product successfully created") {
+            if (res && res.data.product.typeOfItem === "regular") {
                 // onSubmitProps.resetForm();
                 navigate("/admin/productlist");
+            }
+            else{
+                // onSubmitProps.resetForm();
+                navigate("/admin/sub/products")
             }
         }).catch(async (err) => {
             console.log(err);

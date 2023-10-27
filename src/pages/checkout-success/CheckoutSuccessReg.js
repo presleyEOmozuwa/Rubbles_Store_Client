@@ -14,9 +14,9 @@ const CheckoutSuccessReg = () => {
     let auth = useAuth();
     let { httptoken, getToken, setToken } = auth;
 
-    let { session_id } = useParams();
+    let { sessionId } = useParams();
 
-    let sessionId = session_id.substring(11);
+    // let sessionId = session_id.substring(11);
 
     let { baseUrl } = host;
 

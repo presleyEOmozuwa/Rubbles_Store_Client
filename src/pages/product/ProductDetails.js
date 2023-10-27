@@ -9,14 +9,14 @@ import SingleSubscriptionItem from './BuySingleSubItem';
 
 
 const ProductDetails = () => {
-    let [product, setProduct] = useState({ id: '', prodName: '', price: 0, coupon: 0, newPrice: 0, priceId: '', imageUrl: '', quantity: 0, typeOfItem: '', des: '' });
+    const [product, setProduct] = useState({ id: '', prodName: '', price: 0, coupon: 0, newPrice: 0, priceId: '', imageUrl: '', quantity: 0, typeOfItem: '', des: '' });
 
-    let { id, prodName, price, coupon, newPrice, imageUrl, typeOfItem, des } = product;
+    const { id, prodName, price, coupon, newPrice, imageUrl, typeOfItem, des } = product;
 
-    let params = useParams();
-    let { productId } = params
+    const params = useParams();
+    const { productId } = params
 
-    let { baseUrl } = host;
+    const { baseUrl } = host;
 
 
 

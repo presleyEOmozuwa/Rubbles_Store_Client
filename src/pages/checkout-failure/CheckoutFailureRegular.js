@@ -8,21 +8,19 @@ import { toast } from 'react-toastify';
 
 const CheckoutFailureRegular = () => {
 
-    let auth = useAuth();
-    let { httptoken, getToken, setToken } = auth;
+    const auth = useAuth();
+    const { httptoken, getToken, setToken } = auth;
 
-    let { session_id } = useParams();
+    const { sessionId } = useParams();
 
-    let sessionId = session_id.substring(11);
+    const { baseUrl } = host;
 
-    let { baseUrl } = host;
-
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        checkoutFailureMultipleHandler(`${baseUrl}/api/checkout/failure/regular${sessionId}`, { headers: httptoken(getToken("access_token")) }).then((res) => {
+        checkoutFailureMultipleHandler(`${baseUrl}/api/checkout/failure/regular/${sessionId}`, { headers: httptoken(getToken("access_token")) }).then((res) => {
             if (res && res.data) {
-                console.log(sessionId);
+                console.log(res.data.status);
             }
         }).catch( async (err) => {
             console.log(err);
@@ -34,7 +32,7 @@ const CheckoutFailureRegular = () => {
             }
         });
         
-    }, [navigate, httptoken, getToken, baseUrl])
+    }, [navigate, httptoken, getToken, baseUrl, sessionId])
     
 
     return (

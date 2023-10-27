@@ -16,22 +16,23 @@ const SubscriptionCartBuilder = () => {
 
 
     const auth = useAuth();
-    let { httptoken, getToken, setToken } = auth;
+    const { httptoken, getToken, setToken } = auth;
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
-    let { baseUrl } = host;
+    const { baseUrl } = host;
 
     // REQUEST TO GET ALL CART ITEMS
     useEffect(() => {
         const token = getToken("access_token");
         getCartItems(`${baseUrl}/api/sub/cart`, { headers: httptoken(token) }).then((res) => {
             console.log(res);
-            if (res && res.data.cart) {
+            if (res && res.data.subcart) {
+                console.log(res.data.subcart)
                 setSubCartObj((state) => {
                     return {
                         ...state,
-                        products: res.data.cart?.Products
+                        products: res.data.subcart?.subItems
                     }
                 });
             }
@@ -41,9 +42,6 @@ const SubscriptionCartBuilder = () => {
             if (err.response) {
                 if (error === "access token expired") {
                     await tokenRenewalHandler(navigate, baseUrl, getToken, setToken, toast);
-                }
-                if(error === "product already exist on cart"){
-                    toast.info(error);
                 }
             }
 

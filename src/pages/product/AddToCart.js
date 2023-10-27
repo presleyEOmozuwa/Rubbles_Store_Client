@@ -47,8 +47,8 @@ const AddToCart = ({ productId, typeOfItem }) => {
                 });
             }
             else {
-                addItemToCart(`${baseUrl}/api/sub/addtocart`, { productId: productId }).then((res) => {
-                    if (res && res.data.status === "product successfully added to cart") {
+                addItemToCart(`${baseUrl}/api/sub/addtocart`, { productId: productId }, { headers: httptoken(getToken("access_token")) }).then((res) => {
+                    if (res && res.data.status === "product successfully added to subcart") {
                         navigate("/auth/sub/shoppingcart");
                     }
                 }).catch(async (err) => {

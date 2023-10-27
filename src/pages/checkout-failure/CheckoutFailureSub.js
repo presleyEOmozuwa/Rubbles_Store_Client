@@ -8,21 +8,21 @@ import { toast } from 'react-toastify';
 
 const CheckoutFailureSub = () => {
 
-    let auth = useAuth();
-    let { httptoken, getToken, setToken } = auth;
+    const auth = useAuth();
+    const { httptoken, getToken, setToken } = auth;
 
-    let { session_id } = useParams();
+    const { sessionId } = useParams();
 
-    let sessionId = session_id.substring(11);
 
-    let { baseUrl } = host;
+    const { baseUrl } = host;
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     useEffect(() => {
         checkoutFailureSingleHandler(`${baseUrl}/api/checkout/failure/sub/${sessionId}`, { headers: httptoken(getToken("access_token")) }).then((res) => {
             if (res && res.data) {
                 console.log(sessionId);
+                console.log(res.data.status);
             }
         }).catch( async (err) => {
             console.log(err);
@@ -34,7 +34,7 @@ const CheckoutFailureSub = () => {
             }
         });
         
-    }, [navigate, httptoken, getToken, baseUrl])
+    }, [navigate, httptoken, getToken, baseUrl, sessionId])
     
 
     return (

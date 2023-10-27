@@ -29,6 +29,9 @@ const SubscriptionCart = ({ products, initAmount, httptoken, getToken, setToken,
                 if (error === "access token expired") {
                     await tokenRenewalHandler(navigate, baseUrl, getToken, setToken, toast);
                 }
+                if(error === "you cannot subscribe to the same item twice"){
+                    toast.info(error);
+                }
             }
         });
 
@@ -61,9 +64,10 @@ const SubscriptionCart = ({ products, initAmount, httptoken, getToken, setToken,
 
                 <div className='row'>
                     <div className='col-lg-9'>
-                        <h1 className='fw-light text-center pt-2 align-self-center'>My Shopping Cart </h1>
+                        <h1 className='fw-light text-center pt-2 align-self-center'>My Subscription Cart </h1>
                         <div className='text-center mt-4'>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae fuga laudantium repellendus consequatur ratione eum aspernatur facere! Similique dolores sequi repellendus assumenda, nobis enim, quod aspernatur numquam error eum iste?</p>
+                            <Link to="/auth/shoppingcart">Go to Regular Cart</Link>
                         </div>
                     </div>
                     <div className='col-lg-3 text-center'>
@@ -73,7 +77,7 @@ const SubscriptionCart = ({ products, initAmount, httptoken, getToken, setToken,
 
                             <p className='mb-3'> Total : <span className='fs-5 text-success fw-bold'>${initAmount.toFixed(2)}</span></p>
 
-                            <Link className='border px-4 py-2 bg-danger text-white fw-bolder shadow' to='/'> Checkout </Link>
+                            <Link className='border px-4 py-2 bg-danger text-white fw-bolder shadow' to='/auth/show'> Checkout </Link>
                         </div>
                     </div>
                 </div>
@@ -89,7 +93,7 @@ const SubscriptionCart = ({ products, initAmount, httptoken, getToken, setToken,
             </div>
         )
     }
-    else if (products.length > 0) {
+    else if (products.length >= 1) {
         return (
             <div className='container-fluid mt-3 p-3 vh-100'>
                 <div className='row'>
@@ -97,6 +101,7 @@ const SubscriptionCart = ({ products, initAmount, httptoken, getToken, setToken,
                         <h1 className='fw-light text-center pt-2 align-self-center'>My Shopping Cart </h1>
                         <div className='text-center mt-4'>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae fuga laudantium repellendus consequatur ratione eum aspernatur facere! Similique dolores sequi repellendus assumenda, nobis enim, quod aspernatur numquam error eum iste?</p>
+                            <Link to="/auth/shoppingcart">Go to Regular Cart</Link>
                         </div>
                     </div>
                     <div className='col-lg-3 text-center'>
@@ -123,21 +128,17 @@ const SubscriptionCart = ({ products, initAmount, httptoken, getToken, setToken,
                                 </div>
                                 <div className='mb-1'>
                                     <span className='mx-3'> Price </span>
-                                    <span className='mx-3 fw-bold'> ${p.price} </span>
-                                </div>
-                                <div className='mb-1'>
-                                    <span className='m-3'> Coupon </span>
-                                    <span className='ms-0'> {p.coupon}% </span>
+                                    <span className='mx-3 fw-bold'> ${p.price} per month </span>
                                 </div>
                                 {p.coupon ? <div className='mb-1'>
                                     <span className='m-3'> New Price </span>
-                                    <span className='m-3 fw-bold'> ${p.newPrice} </span>
+                                    <span className='m-3 fw-bold'> ${p.newPrice} per month </span>
                                 </div> : null}
-                                <div className='mb-1'>
+                                <span className='me-5'>
                                     <span className='mx-3'>Quantity</span>
                                     <span>{p.quantity}</span>
-                                </div>    
-                                <button className='btn btn-danger rounded shadow p-0 px-2  fw-bold' type='submit' value={p._id} onClick={handleDelete}> del</button>
+                                </span>    
+                                <button className='btn btn-danger rounded shadow p-0 px-2  fw-bold' type='submit' value={p._id} onClick={(e) => handleDelete(e)}> del</button>
                             </div>
                         )
                     })}
