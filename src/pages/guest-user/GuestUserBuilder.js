@@ -4,11 +4,11 @@ import axios from 'axios';
 import GuestUser from './GuestUser';
 
 const GuestUserBuilder = () => {
-    let [products, setProducts] = useState([])
+    const [products, setProducts] = useState([])
 
-    let [deletedItem, setDeletedItem] = useState({ });
+    const [deletedItem, setDeletedItem] = useState({ });
 
-    let { baseUrl } = host;
+    const { baseUrl } = host;
 
 
     // REQUEST FOR ALL PRODUCTS ADDED TO CART BY USER

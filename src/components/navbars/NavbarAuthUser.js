@@ -6,10 +6,10 @@ import { logoutFromServer, logoutFromClient } from '../../services/user.service'
 
 
 const NavbarAuthUser = () => {
-    let auth = useAuth();
-    let { logout, signout, getToken} = auth;
-    let { baseUrl } = host;
-    let navigate = useNavigate();
+    const auth = useAuth();
+    const { logout, signout, getToken} = auth;
+    const { baseUrl } = host;
+    const navigate = useNavigate();
 
     const handleLogout = async (event) => {
         event.preventDefault();
@@ -47,6 +47,9 @@ const NavbarAuthUser = () => {
                             </li>
                             <li className="nav-item">
                                 <a className='nav-link text-white' href='/auth/sub/products'>Subscriptions</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className='nav-link text-white' href='/auth/order/history'>Orders</a>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className='nav-link dropdown-toggle text-white' role="button" data-bs-toggle="dropdown" aria-expanded="false">Cart</a>

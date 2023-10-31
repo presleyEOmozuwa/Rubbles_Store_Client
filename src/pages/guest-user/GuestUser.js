@@ -83,7 +83,7 @@ const GuestUser = ({ products, initAmount, setDeletedItem }) => {
             </div>
         )
     }
-    else if (products.length > 0) {
+    else if (products.length >= 1) {
         return (
             <div className='container-fluid mt-3 p-3 vh-100 shared'>
                 <div className='row'>
@@ -129,14 +129,14 @@ const GuestUser = ({ products, initAmount, setDeletedItem }) => {
                                     <span className='m-3 fw-bold'> ${p.newPrice} </span>
                                 </div>
                                 <span className='mx-3'>Quantity</span>
-                                <select className='me-5 ms-1 qty' onChange={(e) => handleQty(e, p.id)}>
+                                <select className='me-5 ms-1 qty' onChange={(e) => handleQty(e, p._id)}>
                                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((q, index) => {
                                         return (
                                             <option key={index} value={q}>{q}</option>
                                         )
                                     })}
                                 </select>
-                                <button className='btn btn-danger rounded shadow p-0 px-2  fw-bold' type='submit' value={p.id} onClick={handleDelete}> del</button>
+                                <button className='btn btn-danger rounded shadow p-0 px-2  fw-bold' type='submit' value={p.id} onClick={(e) => handleDelete(e)}> del</button>
                             </div>
                         )
                     })}

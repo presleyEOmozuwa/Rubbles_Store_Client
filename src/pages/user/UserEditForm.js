@@ -18,9 +18,9 @@ const UserEditForm = () => {
 
     let auth = useAuth();
     let { httptoken, getToken, setToken } = auth;
-    
+
     let { baseUrl } = host;
-    
+
     let navigate = useNavigate();
 
     const initialValues = {
@@ -37,7 +37,7 @@ const UserEditForm = () => {
             if (res && res.data.status === "user updated successfully") {
                 navigate('/auth/user')
             }
-        }).catch( async (err) => {
+        }).catch(async (err) => {
             console.log(err);
             const { error } = err.response.data;
             if (err.response) {
@@ -62,7 +62,7 @@ const UserEditForm = () => {
                 }
                 return clone;
             });
-        }).catch( async (err) => {
+        }).catch(async (err) => {
             console.log(err);
             const { error } = err.response.data;
             if (err.response) {

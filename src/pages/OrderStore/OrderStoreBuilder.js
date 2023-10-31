@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { getOrders } from '../../services/order.service'
 import { tokenRenewalHandler } from '../../utils/tokenRefresh';
 import { toast } from 'react-toastify';
-import Order from './Order';
+import OrderHistory from './OrderHistory.js';
 
 
 const OrderStoreBuilder = () => {
@@ -14,22 +14,21 @@ const OrderStoreBuilder = () => {
     const { orders } = orderStore;
 
     const auth = useAuth();
-    let { httptoken, getToken, setToken } = auth;
+    const { httptoken, getToken, setToken } = auth;
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
-    let { baseUrl } = host;
+    const { baseUrl } = host;
 
     useEffect(() => {
         const token = getToken("access_token");
         getOrders(`${baseUrl}/api/order/history`, { headers: httptoken(token) }).then((res) => {
-            if (res && res.data.orderArchive) {
-                const orderItems = res.data.orderArchive.orders;
+            if (res && res?.data.orderArchive) {
                 setOrder((state) => {
-                    console.log(orderItems);
+                    console.log(res.data.orderArchive.orders);
                     return {
                         ...state,
-                        orders: orderItems
+                        orders: res.data.orderArchive.orders
                     }
                 })
             }
@@ -49,7 +48,7 @@ const OrderStoreBuilder = () => {
         <React.Fragment>
             {orders.map((order, i) => {
                 return (
-                    <Order key={i} order={order}/>
+                    <OrderHistory key={i} order={order}/>
                 )
             })}
         </React.Fragment>

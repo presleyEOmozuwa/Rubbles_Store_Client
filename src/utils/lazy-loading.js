@@ -6,6 +6,12 @@ export const AdminHome = lazy(() => import('../pages/admin/AdminHome'));
 
 export const AdminSubProducts = lazy(() => import('../pages/admin/AdminSubProducts'));
 
+export const EmailUpdate = lazy(() => import('../pages/user/EmailUpdate'));
+
+export const UserNameUpdate = lazy(() => import('../pages/user/UserNameUpdate'));
+
+export const PasswordChange = lazy(() => import('../pages/user/PasswordChange'));
+
 export const UserBlockAdmin = lazy(() => import('../pages/admin/UserBlockAdmin'));
 
 export const UserEditAdminForm = lazy(() => import('../pages/admin/UserEditAdminForm'));
@@ -23,6 +29,8 @@ export const GuestUserBuilder = lazy(() => import('../pages/guest-user/GuestUser
 export const ForgotPasswordForm = lazy(() => import('../pages/profile-settings/ForgotPasswordForm'));
 
 export const LoginOTP = lazy(() => import('../pages/profile-settings/LoginOTP'));
+
+export const OrderStoreBuilder = lazy(() => import('../pages/OrderStore/OrderStoreBuilder'));
 
 export const ProductList = lazy(() => import('../pages/product/ProductList'));
 
@@ -49,6 +57,8 @@ export const ProductFormData = lazy(() => import('../pages/product/ProductFormDa
 export const RegisterForm = lazy(() => import('../pages/register/RegisterForm'));
 
 export const ResetPasswordForm = lazy(() => import('../pages/profile-settings/ResetPasswordForm'));
+
+export const SharedEditView = lazy(() => import('../pages/user/SharedEditView'));
 
 export const UserDetails = lazy(() => import('../pages/user/UserDetails'));
 

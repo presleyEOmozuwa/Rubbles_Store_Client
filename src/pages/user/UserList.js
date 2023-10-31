@@ -107,6 +107,7 @@ const UserList = () => {
 
     }
 
+
     const handleLocation = (event) => {
         event.preventDefault();
         locationHandler(`${baseUrl}/api/admin/clear-locationusers`, { headers: httptoken(getToken("access_token")) }).then((res) => {

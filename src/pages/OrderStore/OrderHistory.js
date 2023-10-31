@@ -1,35 +1,21 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const Order = ({order}) => {
-    // return (
-    //     <React.Fragment>
-    //         {order.cartItems.map((product, index) => {
-    //             return (
-    //                 <React.Fragment key={index}>
-    //                     <div className='container'>
-    //                         <div className='row'>
-    //                             <div className='col-lg-4'></div>
-    //                             <div className='col-lg-4'></div>
-    //                             <div className='col-lg-4'></div>
-    //                         </div>
-    //                     </div>
-    //                 </React.Fragment>
-    //             )
-    //         })}
-    //     </React.Fragment>
-    // );
+const OrderHistory = ({order}) => {
+    const navigate = useNavigate();
+
+    const handleBuyAgain = (event) => {
+        event.preventDefault();
+        navigate("/auth/show");
+
+    }
+
+
+
     return (
         <React.Fragment>
-            <div className='container shadow mt-3 p-4 justify-content-center'>
-                <div className='row justify-content-center mb-2'>
-                    <div className='col-lg-4'>
-                        <span className='fs-4'>Order placed, thanks!</span>
-                        <p>Confirmation will be sent to your email.</p>
-                    </div>
-                    <div className='col-lg-4'></div>
-                    <div className='col-lg-4'></div>
-                </div>
-                <div className='row justify-content-center mb-3'>
+            <div className='container shadow mt-3 p-4 pt-1 justify-content-center'>
+                <div className='row justify-content-center mb-3 bg-light pt-0'>
                     <div className='col-lg-3'>
                         <small>ORDER PLACED</small>
                         <p><small>{order.orderplaced}</small></p>
@@ -65,17 +51,17 @@ const Order = ({order}) => {
                         </React.Fragment>
                     )
                 })}
-                <div className='row mt-4'>
+                {/* <div className='row mt-4'>
                     <div className='col-lg-3'>
                         <button className="btn btn-white p-0 px-5 py-1 border me-1" onClick={(e) => handleGoToOrders(e)}> Go to orders</button>
                     </div>
                     <div className='col-lg-2'>
                     </div>
                     <div className='col-lg-7'></div>
-                </div>
+                </div> */}
             </div>
         </React.Fragment>
     );
 };
 
-export default Order;
+export default OrderHistory;

@@ -65,7 +65,6 @@ export const locationHandler = async (url, option) => {
 }
 
 
-
 export const deleteUserByAdmin = async (url, option) => {
     let response;
     if(typeof option === "object"){
@@ -73,3 +72,4 @@ export const deleteUserByAdmin = async (url, option) => {
     }
     return response;
 }
+

@@ -17,7 +17,7 @@ const SubscriptionCart = ({ products, initAmount, httptoken, getToken, setToken,
     const handleCheckout = (event) => {
         event.preventDefault();
         const token = getToken("access_token");
-        multipleSubHandler(`${baseUrl}/api/sub/multiple/create-checkout-session`, { products: products }, { headers: httptoken(token) }).then((res) => {
+        multipleSubHandler(`${baseUrl}/api/sub/multiple/create-checkout-session`, { cartItems: products }, { headers: httptoken(token) }).then((res) => {
             console.log(res.data);
             if (res && res.data) {
                 window.location.href = res.data.url
@@ -64,7 +64,7 @@ const SubscriptionCart = ({ products, initAmount, httptoken, getToken, setToken,
 
                 <div className='row'>
                     <div className='col-lg-9'>
-                        <h1 className='fw-light text-center pt-2 align-self-center'>My Subscription Cart </h1>
+                        <h1 className='fw-light text-center pt-2 align-self-center'>Subscription Cart </h1>
                         <div className='text-center mt-4'>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae fuga laudantium repellendus consequatur ratione eum aspernatur facere! Similique dolores sequi repellendus assumenda, nobis enim, quod aspernatur numquam error eum iste?</p>
                             <Link to="/auth/shoppingcart">Go to Regular Cart</Link>
@@ -77,7 +77,7 @@ const SubscriptionCart = ({ products, initAmount, httptoken, getToken, setToken,
 
                             <p className='mb-3'> Total : <span className='fs-5 text-success fw-bold'>${initAmount.toFixed(2)}</span></p>
 
-                            <Link className='border px-4 py-2 bg-danger text-white fw-bolder shadow' to='/auth/show'> Checkout </Link>
+                            <Link className='border px-4 py-2 bg-danger text-white fw-bolder shadow text-decoration-none' to='/auth/show'> Checkout </Link>
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@ const SubscriptionCart = ({ products, initAmount, httptoken, getToken, setToken,
                     <div className='col-sm-3'></div>
                     <div className='col-sm-6 p-5 shadow empty'>
                         <p className='display-5 mb-2'> Your Cart is Empty! </p>
-                        <Link className='me-1 border py-1 px-3 bg-danger text-white fw-bolder shadow' to='/'> Shop Now </Link>
+                        <Link className='me-1 border py-1 px-3 bg-danger text-white fw-bolder shadow text-decoration-none' to='/auth/show'> Shop Now </Link>
                     </div>
                     <div className='col-sm-3'></div>
                 </div>
@@ -98,7 +98,7 @@ const SubscriptionCart = ({ products, initAmount, httptoken, getToken, setToken,
             <div className='container-fluid mt-3 p-3 vh-100'>
                 <div className='row'>
                     <div className='col-lg-9'>
-                        <h1 className='fw-light text-center pt-2 align-self-center'>My Shopping Cart </h1>
+                        <h1 className='fw-light text-center pt-2 align-self-center'>Subscription Cart </h1>
                         <div className='text-center mt-4'>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae fuga laudantium repellendus consequatur ratione eum aspernatur facere! Similique dolores sequi repellendus assumenda, nobis enim, quod aspernatur numquam error eum iste?</p>
                             <Link to="/auth/shoppingcart">Go to Regular Cart</Link>

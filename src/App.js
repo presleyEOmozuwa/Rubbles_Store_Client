@@ -10,7 +10,7 @@ import NoMatch from './pages/no-match/NoMatch';
 import { AuthProvider } from './context/AuthContext';
 import { LayoutAdmin, LayoutAuthUser, LayoutPublic } from './components/auth-layout/AuthLayout';
 
-import { Admin, AdminHome, AdminSubProducts, UserEditAdminForm, UserBlockAdmin, CheckoutSuccessReg, CheckoutSuccessSub, CheckoutFailureRegular, CheckoutFailureSub, ForgotPasswordForm, ProductList, ProductEditForm, UserEditForm, UserList, CategoryList, CategoryDetailsEditForm, CategoryForm, EmailConfirmation, GuestUserBuilder, LoginForm, LoginOTP, ProductDetails, ProductFormData, RegisterForm, ResetPasswordForm, UserDetails, ShoppingCartBuilder, SubscriptionProducts, SubscriptionCartBuilder, AuthShowProducts } from './utils/lazy-loading';
+import { Admin, AdminHome, AdminSubProducts, EmailUpdate, UserNameUpdate, PasswordChange, UserEditAdminForm, UserBlockAdmin, CheckoutSuccessReg, CheckoutSuccessSub, CheckoutFailureRegular, CheckoutFailureSub, ForgotPasswordForm, ProductList, ProductEditForm, SharedEditView, UserEditForm, UserList, CategoryList, CategoryDetailsEditForm, CategoryForm, EmailConfirmation, GuestUserBuilder, LoginForm, LoginOTP, OrderStoreBuilder, ProductDetails, ProductFormData, RegisterForm, ResetPasswordForm, UserDetails, ShoppingCartBuilder, SubscriptionProducts, SubscriptionCartBuilder, AuthShowProducts } from './utils/lazy-loading';
 
 
 const router = createBrowserRouter([
@@ -56,10 +56,15 @@ const router = createBrowserRouter([
             children: [
                   { path: 'user', element: <UserDetails /> },
                   { path: 'user/update', element: <UserEditForm /> },
+                  { path: 'user/email/update', element: <EmailUpdate /> },
+                  { path: 'user/username/update', element: <UserNameUpdate /> },
+                  { path: 'user/passwordchange/update', element: <PasswordChange /> },
+                  { path: 'user/shared/update', element: <SharedEditView /> },
                   { path: 'product/:id', element: <ProductDetails /> },
                   { path: 'shoppingcart', element: <ShoppingCartBuilder /> },
                   { path: 'sub/products', element: <SubscriptionProducts /> },
                   { path: 'sub/shoppingcart', element: <SubscriptionCartBuilder /> },
+                  { path: 'order/history', element: <OrderStoreBuilder /> },
                   { path: 'checkout/regular/success/:sessionId', element: <CheckoutSuccessReg /> },
                   { path: 'checkout/sub/success/:sessionId', element: <CheckoutSuccessSub /> },
                   { path: 'checkout/failure/regular/:sessionId', element: <CheckoutFailureRegular /> },

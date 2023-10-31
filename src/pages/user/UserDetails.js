@@ -1,29 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { host } from '../../utils/base-endpoint';
 import './User.css';
 import { useAuth } from '../../context/AuthContext';
 import { getUser } from '../../services/user.service';
+import { manageBillingHandler } from '../../services/stripe.service';
 import { tokenRenewalHandler } from '../../utils/tokenRefresh';
 import { toast } from 'react-toastify';
 
 const UserDetails = () => {
-    let [appuser, setUser] = useState({
+    const [appuser, setUser] = useState({
         id: '',
         username: '',
         email: '',
         role: ''
     });
 
-    let { id, username, email, role } = appuser;
+    const { id, username, email, role } = appuser;
 
-    let auth = useAuth();
+    const auth = useAuth();
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
-    let { baseUrl } = host;
+    const { baseUrl } = host;
 
-    let { httptoken, getToken, setToken } = auth;
+    const { httptoken, getToken, setToken } = auth;
+
+    const handleSubPortal = async (event) => {
+        event.preventDefault();
+        manageBillingHandler(`${baseUrl}/api/stripe/customer/portal`, { headers: httptoken(getToken("access_token")) }).then((res) => {
+            console.log(res.data);
+            if (res && res.data) {
+                window.location.href = res.data.url;
+            }
+        }).catch(async (err) => {
+            console.log(err);
+            const { error } = err.response.data;
+            if (err.response) {
+                if (error === "access token expired") {
+                    await tokenRenewalHandler(navigate, baseUrl, getToken, setToken, toast);
+                }
+            }
+        });
+    }
 
 
     // REQUEST TO RETRIEVE A USER
@@ -54,7 +73,7 @@ const UserDetails = () => {
             }
         });
 
-    }, [httptoken, navigate, getToken, baseUrl]);
+    }, [httptoken, navigate, getToken, setToken, baseUrl]);
 
 
     return (
@@ -63,57 +82,45 @@ const UserDetails = () => {
                 <div className='col-lg-5'></div>
                 <div className='col-lg-5'></div>
                 <div className='col-lg-2 text-end'>
-                    <span className='text-muted fw-bold'> Hi, {username} </span>
+                    <span className='fw-semibold'> Hi, {username} </span>
                 </div>
             </div>
-            <div className='row mb-4 justify-content-center mx-3'>
+            <div className='row mb-4 justify-content-center m-3'>
+                <div className='col-lg-2'></div>
                 <div className='col-lg-4 text-center'>
-                    <h4 className='text-muted'> Profile Info</h4>
-                    <div className='p-3 shadow-lg'>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae fuga laudantium repellendus consequatur ratione eum</p>
-                        <a className='fw-bold' href='/auth/user/update'>Profile</a>
+                    <h5> Profile Info</h5>
+                    <div className='p-3 shadow'>
+                        <p className='m-0'>Manage, add or remove user profile for personalized experiences.</p>
+                        <Link className='text-decoration-none fw-semibold' to='/auth/user/update' >Profile</Link>
                     </div>
                 </div>
                 <div className='col-lg-4 text-center'>
-                    <h4 className='text-muted'> Login and Security</h4>
-                    <div className='p-3 shadow-lg'>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae fuga laudantium repellendus consequatur ratione eum</p>
-                        <a className='fw-bold' href='#'>Login & Security</a>
+                    <h5> Login & Security</h5>
+                    <div className='p-3 shadow'>
+                        <p className='m-0'>Edit login, username and email and password.</p>
+                        <Link className='text-decoration-none fw-semibold' to='/auth/user/shared/update'>Login & Security</Link>
                     </div>
                 </div>
-                <div className='col-lg-4 text-center'>
-                    <h4 className='text-muted'> Payments</h4>
-                    <div className='p-3 shadow-lg'>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae fuga laudantium repellendus consequatur ratione eum</p>
-                        <a className='fw-bold' href='#'>Payments</a>
-                    </div>
-                </div>
+                <div className='col-lg-2'></div>
             </div>
-            <div className='row mb-4 mx-3'>
+            <div className='row mb-4 justify-content-center m-3'>
+                <div className='col-lg-2'></div>
                 <div className='col-lg-4 text-center'>
-                    <h4 className='text-muted'> Orders</h4>
-                    <div className='p-3 shadow-lg'>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae fuga laudantium repellendus consequatur ratione eum</p>
-                        <a className='fw-bold' href='#'>Orders</a>
+                    <h5 className=''> Orders & Payments</h5>
+                    <div className='p-3 shadow'>
+                        <p className='m-0 mb-3'>Track, cancel an order, download invoice or buy again</p>
+                        <Link className='text-decoration-none fw-semibold' to='/auth/order/history'>Orders & Payments</Link>
                     </div>
                 </div>
                 <div className='col-lg-4 text-center'>
-                    <h4 className='text-muted'> Gift Cards</h4>
-                    <div className='p-3 shadow-lg'>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae fuga laudantium repellendus consequatur ratione eum</p>
-                        <a className='fw-bold' href='#'>Gift Cards</a>
+                    <h5> Subscriptions</h5>
+                    <div className='p-3 shadow'>
+                        <p className='m-0 mb-2'>Manage subscriptions, view benefits and payment settings.</p>
+                        <button className="btn btn-white p-0 px-5 py-1 border me-1 text-primary fw-semibold" onClick={(e) => handleSubPortal(e)}> Portal</button>
                     </div>
                 </div>
-                <div className='col-lg-4 text-center'>
-                    <h4 className='text-muted'> Customer Service</h4>
-                    <div className='p-3 shadow-lg'>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae fuga laudantium repellendus consequatur ratione eum</p>
-                        <a className='fw-bold' href='#'>Customer Service</a>
-                    </div>
-                </div>
+                <div className='col-lg-2'></div>
             </div>
-
-
         </div>
     );
 };

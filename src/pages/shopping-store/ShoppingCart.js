@@ -10,28 +10,11 @@ import { tokenRenewalHandler } from '../../utils/tokenRefresh';
 
 const ShoppingCart = ({ products, initAmount, httptoken, getToken, setToken, setDeletedProduct }) => {
     const [totalAmount, setTotalAmount] = useState(0);
-    const [updatedProducts, setUpdatedProducts] = useState([]);
 
     const { baseUrl } = host;
 
     const navigate = useNavigate();
 
-
-    // const handleQty = (event, productId) => {
-    //     const modified = products.map((p) => {
-    //         if (productId === p._id) {
-    //             p.quantity = parseInt(event.target.value)
-    //         }
-    //         return p;
-    //     });
-
-    //     let total = modified.reduce((sum, p) => {
-    //         return sum + (p.quantity * p.newPrice)
-    //     }, 0)
-
-    //     setTotalAmount(total);
-    //     setUpdatedProducts(modified);
-    // }
 
     const handleQty = (event, productId) => {
         const modified = [...products];
@@ -46,7 +29,6 @@ const ShoppingCart = ({ products, initAmount, httptoken, getToken, setToken, set
         }, 0)
 
         setTotalAmount(total);
-        setUpdatedProducts(modified);
     }
 
     const handleCheckout = async (event) => {
@@ -97,7 +79,7 @@ const ShoppingCart = ({ products, initAmount, httptoken, getToken, setToken, set
 
                 <div className='row'>
                     <div className='col-lg-9'>
-                        <h1 className='fw-light text-center pt-2 align-self-center'>My Shopping Cart </h1>
+                        <h1 className='fw-light text-center pt-2 align-self-center'>Regular Shopping Cart </h1>
                         <div className='text-center mt-4'>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae fuga laudantium repellendus consequatur ratione eum aspernatur facere! Similique dolores sequi repellendus assumenda, nobis enim, quod aspernatur numquam error eum iste?</p>
                             <Link to="/auth/sub/shoppingcart">Go to Subscription Cart</Link>
@@ -110,7 +92,7 @@ const ShoppingCart = ({ products, initAmount, httptoken, getToken, setToken, set
 
                             <p className='mb-3'> Total : <span className='fs-5 text-success fw-bold'>${initAmount.toFixed(2)}</span></p>
 
-                            <Link className='border px-4 py-2 bg-danger text-white fw-bolder shadow' to='/auth/show'> Checkout </Link>
+                            <Link className='border px-4 py-2 bg-danger text-white fw-bolder shadow text-decoration-none' to='/auth/show'> Checkout </Link>
                         </div>
                     </div>
                 </div>
@@ -118,7 +100,7 @@ const ShoppingCart = ({ products, initAmount, httptoken, getToken, setToken, set
                     <div className='col-sm-3'></div>
                     <div className='col-sm-6 p-5 shadow empty'>
                         <p className='display-5 mb-2'> Your Cart is Empty! </p>
-                        <Link className='me-1 border py-1 px-3 bg-danger text-white fw-bolder shadow' to='/auth/show'> Shop Now </Link>
+                        <Link className='me-1 border py-1 px-3 bg-danger text-white fw-bolder shadow text-decoration-none' to='/auth/show'> Shop Now </Link>
                     </div>
                     <div className='col-sm-3'></div>
                 </div>

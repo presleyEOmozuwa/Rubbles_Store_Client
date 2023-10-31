@@ -11,16 +11,14 @@ const CheckoutSuccessReg = () => {
     const [orderStore, setOrderStore] = useState({ order: {} });
     const { order } = orderStore;
 
-    let auth = useAuth();
-    let { httptoken, getToken, setToken } = auth;
+    const auth = useAuth();
+    const { httptoken, getToken, setToken } = auth;
 
-    let { sessionId } = useParams();
+    const { sessionId } = useParams();
 
-    // let sessionId = session_id.substring(11);
+    const { baseUrl } = host;
 
-    let { baseUrl } = host;
-
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
 
     const handleBuyAgain = (event) => {
@@ -30,7 +28,7 @@ const CheckoutSuccessReg = () => {
 
     const handleGoToOrders = (event) => {
         event.preventDefault();
-        navigate("/auth/user/order/history");
+        navigate("/auth/order/history");
     }
 
 
@@ -41,7 +39,7 @@ const CheckoutSuccessReg = () => {
             return navigate("/auth/shoppingcart");
         }
 
-        if (entries[0].type === "back_forward") {
+        else if (entries[0].type === "back_forward") {
             return navigate("/auth/shoppingcart");
         }
 

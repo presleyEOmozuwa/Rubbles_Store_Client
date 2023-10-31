@@ -5,6 +5,7 @@ import { host } from '../../utils/base-endpoint';
 import * as Yup from 'yup';
 import { useAuth } from '../../context/AuthContext';
 import { OTPHandler } from '../../services/user.service';
+import { toast } from 'react-toastify';
 
 const LoginOTP = () => {
 
@@ -62,16 +63,20 @@ const LoginOTP = () => {
             if (err && err.response) {
                 const { error } = err.response.data;
                 console.log(error);
+                
+                if(error === "invalid code"){
+                    toast.info(error);
+                }
             }
         });
     }
 
 
     return (
-        <div className='container-fluid pt-5 bg-primary mx-auto vh-100 login-section'>
+        <div className='container-fluid pt-5 mx-auto vh-100 login-section'>
             <div className='row'>
                 <div className='col-lg-4'></div>
-                <div className='col-lg-4 border p-4 bg-white shadow-lg mt-2'>
+                <div className='col-lg-5 border p-4 bg-white shadow-lg mt-2'>
                     <Formik
                         initialValues={initialValues}
                         validationSchema={validationSchema}
@@ -83,7 +88,8 @@ const LoginOTP = () => {
                                 return (
                                     <Form>
                                         <div className='form-group sect mb-3'>
-                                            <label className='me-5' htmlFor='code'>Verification code</label>
+                                            <label className='me-5 fs-4' htmlFor='code'>Verification code</label>
+                                            <p className='m-0 ms-1 text-success fw-semibold'>check your inbox for one time password,<br/> it expires in 5mins.</p>
                                             <Field name='code'>
                                                 {
                                                     (props) => {
@@ -107,7 +113,7 @@ const LoginOTP = () => {
                         }
                     </Formik>
                 </div>
-                <div className='col-lg-4'></div>
+                <div className='col-lg-3'></div>
             </div>
         </div>
     );

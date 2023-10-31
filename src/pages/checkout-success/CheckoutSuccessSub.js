@@ -8,6 +8,9 @@ import { toast } from 'react-toastify';
 
 
 const CheckoutSuccessSub = () => {
+    const [subStore, setSubStore] = useState({ sub: {} });
+    const { sub } = subStore;
+    
     const auth = useAuth();
     const { httptoken, getToken, setToken } = auth;
 
@@ -19,8 +22,15 @@ const CheckoutSuccessSub = () => {
 
     useEffect(() => {
         multipleSubHistory(`${baseUrl}/api/checkout/success/sub/${sessionId}`, { headers: httptoken(getToken("access_token")) }).then((res) => {
-            if (res && res.data) {
+            if (res && res.data.status === "subscription checkout success") {
+                console.log(res.data.subscription);
                 console.log(sessionId);
+                setSubStore((state) => {
+                    return {
+                        ...state,
+                        sub: res.data.subscription
+                    }
+                })
             }
         }).catch( async (err) => {
             console.log(err);
@@ -32,7 +42,7 @@ const CheckoutSuccessSub = () => {
             }
         });
         
-    }, [navigate, httptoken, getToken, baseUrl])
+    }, [navigate, httptoken, setToken, getToken, baseUrl, sessionId])
 
 
 

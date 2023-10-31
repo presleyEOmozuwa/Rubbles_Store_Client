@@ -44,7 +44,7 @@ export const loginUser = async (url, payload, option) => {
 export const logoutFromServer = async (url, option) => {
     let response;
     if(typeof payload === "object"){
-        response = await axios.delete(url, option)
+        response = await axios.put(url, option)
     }
     return response;
 }
@@ -91,6 +91,30 @@ export const deleteUser = async (url, option) => {
     let response;
     if(typeof payload === "object"){
         response = await axios.delete(url, option)
+    }
+    return response;
+}
+
+export const userNameHandler = async (url, payload, option) => {
+    let response;
+    if(typeof payload === "object" || typeof option === "object"){
+        response = await axios.put(url, payload, option)
+    }
+    return response;
+}
+
+export const emailHandler = async (url, payload, option) => {
+    let response;
+    if(typeof payload === "object" || typeof option === "object"){
+        response = await axios.put(url, payload, option)
+    }
+    return response;
+}
+
+export const passwordChangeHandler = async (url, payload, option) => {
+    let response;
+    if(typeof payload === "object" || typeof option === "object"){
+        response = await axios.put(url, payload, option)
     }
     return response;
 }

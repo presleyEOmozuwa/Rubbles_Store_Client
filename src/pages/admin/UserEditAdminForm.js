@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './Admin'
 import { host } from '../../utils/base-endpoint';
 import { useAuth } from '../../context/AuthContext';
-import {  getUserByAdmin, updateUserByAdmin } from '../../services/admin.service';
+import { getUserByAdmin, updateUserByAdmin, clearHandler } from '../../services/admin.service';
 import { tokenRenewalHandler } from '../../utils/tokenRefresh';
 import { toast } from 'react-toastify';
 
@@ -21,9 +21,9 @@ const UserEditAdminForm = () => {
 
     const auth = useAuth();
     const { httptoken, getToken, setToken } = auth;
-    
+
     const { baseUrl } = host;
-    
+
     const navigate = useNavigate();
 
     const initialValues = {
@@ -38,7 +38,7 @@ const UserEditAdminForm = () => {
             username: values.username,
             email: values.email
         }
-        
+
         console.log(payload);
 
         const token = getToken("access_token");
@@ -47,7 +47,7 @@ const UserEditAdminForm = () => {
             if (res && res.data.status === "user updated successfully") {
                 navigate('/admin/userlist')
             }
-        }).catch( async (err) => {
+        }).catch(async (err) => {
             console.log(err);
             const { error } = err.response.data;
             if (err.response) {
@@ -56,6 +56,30 @@ const UserEditAdminForm = () => {
                 }
             }
         });
+    }
+
+    const handleClearOrders = (event) => {
+        event.preventDefault();
+        clearHandler(`${baseUrl}/api/admin/clear-orders/${userId}`, { headers: httptoken(getToken("access_token")) }).then((res) => {
+            console.log(res.data);
+            if (res && res.data.status === "orders cleared from archive") {
+                toast.info(res.data.status);
+                navigate('/admin/userlist')
+            }
+        }).catch(async (err) => {
+            console.log(err);
+            const { error } = err.response.data;
+            if (err.response) {
+                if (error === "access token expired") {
+                    await tokenRenewalHandler(navigate, baseUrl, getToken, setToken, toast);
+                }
+                if (error === "orders already cleared out") {
+                    toast.info(error);
+                }
+            }
+
+        })
+
     }
 
 
@@ -72,7 +96,7 @@ const UserEditAdminForm = () => {
                 }
                 return clone;
             });
-        }).catch( async (err) => {
+        }).catch(async (err) => {
             console.log(err);
             const { error } = err.response.data;
             if (err.response) {
@@ -82,11 +106,20 @@ const UserEditAdminForm = () => {
             }
         });
 
-    }, [httptoken, setToken, getToken, baseUrl, navigate]);
+    }, [httptoken, setToken, getToken, baseUrl, userId, navigate]);
 
 
     return (
         <div className='container mt-5'>
+            <div className='row mb-3'>
+                <div className='col-lg-4'></div>
+                <div className='col-lg-5'>
+
+                </div>
+                <div className='col-lg-3'>
+                    <button className='btn btn-success rounded-0 shadow p-0 px-2' type='submit' onClick={(e) => handleClearOrders(e)}> Clear archived orders </button>
+                </div>
+            </div>
             <div className='row'>
                 <div className='col-sm-4'></div>
                 <div className='col-sm-4 border p-4 shadow-lg mt-2'>
