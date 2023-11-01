@@ -15,11 +15,3 @@ export const getOrder = async (url, option) => {
     }
     return response;
 }
-
-export const trackPackageHandler = async (url, option) => {
-    let response;
-    if(typeof option === "object"){
-        response = await axios.get(url, option)
-    }
-    return response;
-}

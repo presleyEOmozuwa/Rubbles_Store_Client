@@ -114,7 +114,7 @@ const EmailUpdate = () => {
                         <p className='m-0 fw-semibold'> Current email address: </p>
                         <span className='text-success'>{email}</span>
                         <p className='mt-3'>
-                            Enter the new email address you would like to associate with your account below. We will send a One Time Password (OTP) to that address.
+                            Enter the new email address you would like to associate with your account below.
                         </p>
                         <Formik initialValues={initialValues}
                             onSubmit={onSubmit}
@@ -125,7 +125,7 @@ const EmailUpdate = () => {
                                 return (
                                     <Form>
                                         <div className='form-group'>
-                                            <label htmlFor='email'> Email </label>
+                                            <label htmlFor='email'> Enter new email </label>
                                             <Field name='email'>
                                                 {
                                                     (props) => {

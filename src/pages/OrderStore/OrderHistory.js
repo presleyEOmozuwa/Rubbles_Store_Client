@@ -1,7 +1,7 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
-const OrderHistory = ({order}) => {
+const OrderHistory = ({ order }) => {
     const navigate = useNavigate();
 
     const handleBuyAgain = (event) => {
@@ -10,25 +10,38 @@ const OrderHistory = ({order}) => {
 
     }
 
+    const handleTrackPackage = async (event) => {
+        event.preventDefault();
+        window.location.href = order.deliveryTrackingUrl
+    }
+
 
 
     return (
         <React.Fragment>
-            <div className='container shadow mt-3 p-4 pt-1 justify-content-center'>
+            <div className='container-fluid shadow mt-3 p-4 pt-1 justify-content-center'>
                 <div className='row justify-content-center mb-3 bg-light pt-0'>
                     <div className='col-lg-3'>
                         <small>ORDER PLACED</small>
-                        <p><small>{order.orderplaced}</small></p>
+                        <p>{order.orderplaced}</p>
                     </div>
                     <div className='col-lg-3'>
-                        <small>SHIP TO</small>
-                        <p>{order.customerAddress?.name}</p>
+                        <small>ESTIMATED DELIVERY DATE</small>
+                        <p>{order.estimatedDeliveryDate}</p>
                     </div>
                     <div className='col-lg-3'>
-                        <small>ESTIMATED DELIVERY</small>
-                        <p> <small>DATE</small> : {order.estimatedDeliveryDate}</p>
+                        <small className='m-0'>DELIVERY STATUS</small>
+                        <div className='m-0'>
+                            <button className="btn btn-white p-0 px-5 border me-1 " onClick={(e) => handleTrackPackage(e)}> Track Package </button>
+                        </div>
+
                     </div>
-                    <div className='col-lg-3'></div>
+                    <div className='col-lg-3'>
+                        <small>ORDER {order.orderNumber} </small>
+                        <div className='m-0'>
+                            <Link className='text-decoration-none text-success fw-semibold' to={`/auth/order/details/${order.checkoutSessionId}`}>View order details</Link>
+                        </div>
+                    </div>
                 </div>
                 {order.cartItems?.map((product, index) => {
                     return (
@@ -51,17 +64,9 @@ const OrderHistory = ({order}) => {
                         </React.Fragment>
                     )
                 })}
-                {/* <div className='row mt-4'>
-                    <div className='col-lg-3'>
-                        <button className="btn btn-white p-0 px-5 py-1 border me-1" onClick={(e) => handleGoToOrders(e)}> Go to orders</button>
-                    </div>
-                    <div className='col-lg-2'>
-                    </div>
-                    <div className='col-lg-7'></div>
-                </div> */}
             </div>
         </React.Fragment>
-    );
+    )
 };
 
 export default OrderHistory;

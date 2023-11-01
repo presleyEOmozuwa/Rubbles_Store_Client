@@ -10,7 +10,7 @@ import NoMatch from './pages/no-match/NoMatch';
 import { AuthProvider } from './context/AuthContext';
 import { LayoutAdmin, LayoutAuthUser, LayoutPublic } from './components/auth-layout/AuthLayout';
 
-import { Admin, AdminHome, AdminSubProducts, EmailUpdate, UserNameUpdate, PasswordChange, UserEditAdminForm, UserBlockAdmin, CheckoutSuccessReg, CheckoutSuccessSub, CheckoutFailureRegular, CheckoutFailureSub, ForgotPasswordForm, ProductList, ProductEditForm, SharedEditView, UserEditForm, UserList, CategoryList, CategoryDetailsEditForm, CategoryForm, EmailConfirmation, GuestUserBuilder, LoginForm, LoginOTP, OrderStoreBuilder, ProductDetails, ProductFormData, RegisterForm, ResetPasswordForm, UserDetails, ShoppingCartBuilder, SubscriptionProducts, SubscriptionCartBuilder, AuthShowProducts } from './utils/lazy-loading';
+import { Admin, AdminHome, AdminSubProducts, EmailUpdate, UserNameUpdate, PasswordChange, UserEditAdminForm, UserBlockAdmin, CheckoutSuccessReg, CheckoutSuccessSub, CheckoutFailureRegular, CheckoutFailureSub, ForgotPasswordForm, ProductList, ProductEditForm, SharedEditView, UserEditForm, UserList, CategoryList, CategoryDetailsEditForm, CategoryForm, EmailConfirmation, GuestUserBuilder, LoginForm, LoginOTP, OrderDetails, OrderStoreBuilder, ProductDetails, ProductFormData, RegisterForm, ResetPasswordForm, UserDetails, ShoppingCartBuilder, SubscriptionProducts, SubscriptionCartBuilder, AuthShowProducts } from './utils/lazy-loading';
 
 
 const router = createBrowserRouter([
@@ -64,6 +64,7 @@ const router = createBrowserRouter([
                   { path: 'shoppingcart', element: <ShoppingCartBuilder /> },
                   { path: 'sub/products', element: <SubscriptionProducts /> },
                   { path: 'sub/shoppingcart', element: <SubscriptionCartBuilder /> },
+                  { path: 'order/details/:sessionId', element: <OrderDetails /> },
                   { path: 'order/history', element: <OrderStoreBuilder /> },
                   { path: 'checkout/regular/success/:sessionId', element: <CheckoutSuccessReg /> },
                   { path: 'checkout/sub/success/:sessionId', element: <CheckoutSuccessSub /> },

@@ -106,7 +106,7 @@ const UserNameUpdate = () => {
                 </div>
                 <div className='col-lg-6'>
                     <p>
-                        If you want to change the name associated with your <span className='fw-bold'>Rubbles customer account</span>, you may do so below. Be sure to click the <span className='fw-bold'>Save Changes</span> button when you are done.
+                        If you want to change the name associated with your <span className='fw-bold'>Rubbles customer account</span>, you may do so below. Be sure to click the <span className='fw-bold'>Update button</span> when you are done.
                     </p>
                     <Formik initialValues={initialValues}
                         onSubmit={onSubmit}

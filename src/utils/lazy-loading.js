@@ -30,6 +30,8 @@ export const ForgotPasswordForm = lazy(() => import('../pages/profile-settings/F
 
 export const LoginOTP = lazy(() => import('../pages/profile-settings/LoginOTP'));
 
+export const OrderDetails = lazy(() => import('../pages/OrderStore/OrderDetails'));
+
 export const OrderStoreBuilder = lazy(() => import('../pages/OrderStore/OrderStoreBuilder'));
 
 export const ProductList = lazy(() => import('../pages/product/ProductList'));
