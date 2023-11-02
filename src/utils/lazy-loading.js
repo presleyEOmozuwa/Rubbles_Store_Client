@@ -32,6 +32,8 @@ export const LoginOTP = lazy(() => import('../pages/profile-settings/LoginOTP'))
 
 export const OrderDetails = lazy(() => import('../pages/OrderStore/OrderDetails'));
 
+export const OrderDetails_Invoice = lazy(() => import('../pages/OrderStore/OrderDetails_Invoice'));
+
 export const OrderStoreBuilder = lazy(() => import('../pages/OrderStore/OrderStoreBuilder'));
 
 export const ProductList = lazy(() => import('../pages/product/ProductList'));

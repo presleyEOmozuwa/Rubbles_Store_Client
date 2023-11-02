@@ -7,7 +7,6 @@ const OrderHistory = ({ order }) => {
     const handleBuyAgain = (event) => {
         event.preventDefault();
         navigate("/auth/show");
-
     }
 
     const handleTrackPackage = async (event) => {

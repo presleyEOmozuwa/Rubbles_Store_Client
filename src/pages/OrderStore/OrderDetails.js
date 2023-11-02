@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getOrder } from '../../services/order.service'
 import { totalBeforeTax, totalAfterTax } from './helper'
 import { tokenRenewalHandler } from '../../utils/tokenRefresh';
+import './OrderStore.css'
 import { toast } from 'react-toastify';
 
 const OrderDetails = () => {
@@ -20,8 +21,9 @@ const OrderDetails = () => {
 
     const { baseUrl } = host;
 
-    const handleInvoice = async (event) => {
+    const handleViewInvoice = async (event) => {
         event.preventDefault();
+        navigate(`/auth/order/details/invoice/${sessionId}`)
     }
 
     useEffect(() => {
@@ -54,13 +56,13 @@ const OrderDetails = () => {
             </div>
             <div className='row justify-content-center mb-3'>
                 <div className='col-lg-5'>
-                    <span>Ordered on {order.orderplaced}</span>
+                    <p className='m-0'> <span className='fw-semibold'> Ordered on</span> {order.orderplaced}</p>
                 </div>
                 <div className='col-lg-3'>
-                    <span>Order {order.orderNumber}</span>
+                    <p className='m-0'> <span className='fw-semibold'> Order</span> {order.orderNumber}</p>
                 </div>
                 <div className='col-lg-4'>
-                    <button className="btn btn-white p-0 px-3 border me-1 " onClick={(e) => handleInvoice(e)}><small> View or Print invoice </small></button>
+                    <button className="btn btn-white p-0 px-3 border me-1 " onClick={(e) => handleViewInvoice(e)}><small> View or Print invoice </small></button>
                 </div>
             </div>
             <div className='row justify-content-center mb-3'>
