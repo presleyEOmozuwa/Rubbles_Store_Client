@@ -28,11 +28,11 @@ export const GuestUserBuilder = lazy(() => import('../pages/guest-user/GuestUser
 
 export const ForgotPasswordForm = lazy(() => import('../pages/profile-settings/ForgotPasswordForm'));
 
+export const Invoice = lazy(() => import('../pages/OrderStore/Invoice'));
+
 export const LoginOTP = lazy(() => import('../pages/profile-settings/LoginOTP'));
 
 export const OrderDetails = lazy(() => import('../pages/OrderStore/OrderDetails'));
-
-export const OrderDetails_Invoice = lazy(() => import('../pages/OrderStore/OrderDetails_Invoice'));
 
 export const OrderStoreBuilder = lazy(() => import('../pages/OrderStore/OrderStoreBuilder'));
 

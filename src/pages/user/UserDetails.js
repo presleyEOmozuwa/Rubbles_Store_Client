@@ -91,14 +91,14 @@ const UserDetails = () => {
                     <h5> Profile Info</h5>
                     <div className='p-3 shadow'>
                         <p className='m-0'>Manage, add or remove user profile for personalized experiences.</p>
-                        <Link className='text-decoration-none fw-semibold' to='/auth/user/update' >Profile</Link>
+                        <Link className='text-decoration-none fw-semibold text-success' to='/auth/user/update'>Profile</Link>
                     </div>
                 </div>
                 <div className='col-lg-4 text-center'>
                     <h5> Login & Security</h5>
                     <div className='p-3 shadow'>
                         <p className='m-0'>Edit login, username and email and password.</p>
-                        <Link className='text-decoration-none fw-semibold' to='/auth/user/shared/update'>Login & Security</Link>
+                        <Link className='text-decoration-none fw-semibold text-success' to='/auth/user/shared/update'>Login & Security</Link>
                     </div>
                 </div>
                 <div className='col-lg-2'></div>
@@ -109,14 +109,14 @@ const UserDetails = () => {
                     <h5 className=''> Orders & Payments</h5>
                     <div className='p-3 shadow'>
                         <p className='m-0 mb-3'>Track, cancel an order, download invoice or buy again</p>
-                        <Link className='text-decoration-none fw-semibold' to='/auth/order/history'>Orders & Payments</Link>
+                        <Link className='text-decoration-none fw-semibold text-success' to='/auth/order/history'>Orders & Payments</Link>
                     </div>
                 </div>
                 <div className='col-lg-4 text-center'>
                     <h5> Subscriptions</h5>
                     <div className='p-3 shadow'>
                         <p className='m-0 mb-2'>Manage subscriptions, view benefits and payment settings.</p>
-                        <button className="btn btn-white p-0 px-5 py-1 border me-1 text-primary fw-semibold" onClick={(e) => handleSubPortal(e)}> Portal</button>
+                        <button className="btn btn-white p-0 px-5 py-1 border me-1 text-success fw-semibold" onClick={(e) => handleSubPortal(e)}> Portal</button>
                     </div>
                 </div>
                 <div className='col-lg-2'></div>

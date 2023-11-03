@@ -6,12 +6,20 @@ const OrderHistory = ({ order }) => {
 
     const handleBuyAgain = (event) => {
         event.preventDefault();
-        navigate("/auth/show");
+        navigate(`/product/${event.target.value}`);
     }
 
     const handleTrackPackage = async (event) => {
         event.preventDefault();
         window.location.href = order.deliveryTrackingUrl
+    }
+
+    const handleProductQuestion = async (event) => {
+        event.preventDefault();
+    }
+
+    const handleProductReview = async (event) => {
+        event.preventDefault();
     }
 
 
@@ -54,11 +62,17 @@ const OrderHistory = ({ order }) => {
                                         <span className='text-success fw-semibold'>{product.des}</span>
                                     </div>
                                     <div>
-                                        <button className="btn btn-white p-0 px-2 py-1 border me-1" onClick={(e) => handleBuyAgain(e)}> Buy it again</button>
-                                        <button className="btn btn-white p-0 px-2 py-1 border"> <small> View your item </small></button>
+                                        <button className="btn btn-white p-0 px-2 py-1 border me-1" onClick={(e) => handleBuyAgain(e)} value={product._id}> Buy it again</button>
+                                        <button className="btn btn-white p-0 px-2 py-1 border">View your item</button>
                                     </div>
                                 </div>
-                                <div className='col-lg-5'></div>
+                                <div className='col-lg-5'>
+                                    <button className="btn btn-white p-0 px-4 py-1 border mb-1" onClick={(e) => handleProductQuestion(e)}> Ask product question</button>
+                                    <div className='m-0'>
+                                        <button className="btn btn-white p-0 px-4 py-1 border" onClick={(e) => handleProductReview(e)}>Write product review</button>
+                                    </div>
+
+                                </div>
                             </div>
                         </React.Fragment>
                     )

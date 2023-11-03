@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const NavbarPublic = () => {
+    const auth = useAuth();
+    const { getToken } = auth;
 
     return (
         <>
@@ -13,18 +16,29 @@ const NavbarPublic = () => {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ms-auto me-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
+                            {!getToken("access_token") ? <li className="nav-item">
                                 <a className='nav-link text-white' href='/'>Home</a>
-                            </li>
-                            <li className="nav-item">
+                            </li> : <li className="nav-item">
+                                <a className='nav-link text-white' href='/auth/show'>Products</a>
+                            </li>}
+                            
+                            {!getToken("access_token") ? <li className="nav-item">
                                 <a className="nav-link text-white" href='/register'>Register</a>
-                            </li>
-                            <li className="nav-item">
+                            </li> : <li className="nav-item">
+                                <a className="nav-link text-white" href='/auth/user'>Account</a>
+                            </li>}
+
+                            {!getToken("access_token") ? <li className="nav-item">
                                 <a className='nav-link text-white' href='/login'>Login</a>
-                            </li>
-                            <li className="nav-item">
+                            </li> : <li className="nav-item">
+                                <a className='nav-link text-white' href='/auth/sub/products'>Subscriptions</a>
+                            </li>}
+
+                            {!getToken("access_token") ? <li className="nav-item">
                                 <a className='nav-link text-white' href='/cart/guest'>Guest</a>
-                            </li>
+                            </li> : <li className="nav-item">
+                                <a className='nav-link text-white' href='/auth/order/history'>Orders</a>
+                            </li>}
                         </ul>
                     </div>
                 </div>
