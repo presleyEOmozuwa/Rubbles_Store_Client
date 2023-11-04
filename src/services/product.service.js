@@ -5,6 +5,11 @@ export const getAllProducts = async (url) => {
     return response;
 }
 
+export const getFilteredProducts = async (url) => {
+    const response = await axios.get(url)
+    return response;
+}
+
 export const getProduct = async (url) => {
     const response = await axios.get(url)
     return response;
